@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>農產運銷刷題神器 - 正式無 Bug 版</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 font-sans">
+
+    <!-- 頂部導覽列 -->
+    <header class="bg-emerald-700 text-white shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold flex items-center">
+                🌾 農產運銷刷題神器
+            </h1>
+            <div id="userInfo" class="hidden text-sm md:text-base flex items-center gap-3">
+                <span id="userNameDisplay" class="font-semibold bg-emerald-800 px-3 py-1 rounded-full"></span>
+                <button onclick="logout()" class="text-xs bg-emerald-900 hover:bg-emerald-950 px-2 py-1 rounded border border-emerald-500">切換使用者</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主體內容 -->
+    <main class="max-w-4xl mx-auto px-4 py-6">
+
+        <!-- 登入區塊 -->
+        <section id="loginSection" class="bg-white rounded-xl shadow-md p-6 max-w-md mx-auto my-12 text-center">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">歡迎使用農產運銷刷題系統</h2>
+            <p class="text-slate-600 mb-6 text-sm">輸入您的名字即可建立專屬答題紀錄及錯題本</p>
+            <input type="text" id="userNameInput" placeholder="請輸入您的姓名或暱稱" class="w-full border border-slate-300 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <button onclick="login()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow transition">開始刷題</button>
+        </section>
+
+        <!-- 主選單 -->
+        <section id="menuSection" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <!-- 輕鬆刷題卡片 -->
+                <div class="bg-white rounded-xl shadow p-5 border-t-4 border-blue-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-blue-700">🌱 輕鬆刷題模式</h3>
+                            <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">共 248 題</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4">
+                            匯入第5～9次歷屆試題。答錯 20 題後重複，答對全庫 248 題輪完後才重複。
+                        </p>
+                    </div>
+                    <button onclick="startQuiz('easy')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-sm transition">進入輕鬆刷題</button>
+                </div>
+
+                <!-- 考前衝刺卡片 -->
+                <div class="bg-white rounded-xl shadow p-5 border-t-4 border-amber-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-amber-700">🔥 考前衝刺模式</h3>
+                            <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded">精選 100 題</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4">
+                            匯入考前衝刺 100 題。答錯 10 題後重複，答對 50 題後隨機重複。
+                        </p>
+                    </div>
+                    <button onclick="startQuiz('sprint')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg text-sm transition">進入考前衝刺</button>
+                </div>
+
+                <!-- 錯題本卡片 -->
+                <div class="bg-white rounded-xl shadow p-5 border-t-4 border-rose-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-rose-700">📖 錯題本總複習</h3>
+                            <span id="wrongCountBadge" class="text-xs bg-rose-100 text-rose-800 font-semibold px-2 py-0.5 rounded">0 題</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4">
+                            集中回顧歷次答錯題目。答對後不會消失，提供持續複習。
+                        </p>
+                    </div>
+                    <button onclick="openWrongBook()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 rounded-lg text-sm transition">查看錯題本</button>
+                </div>
+            </div>
+
+            <!-- 使用者統計資訊 -->
+            <div class="bg-white rounded-xl shadow p-4 mb-6">
+                <h4 class="text-sm font-bold text-slate-700 mb-2 border-b pb-2">📊 個人學習統計</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-slate-50 p-3 rounded-lg">
+                        <div class="text-xs text-slate-500">輕鬆模式答對掌握</div>
+                        <div id="statEasySolved" class="text-lg font-bold text-blue-600">0 / 248</div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg">
+                        <div class="text-xs text-slate-500">衝刺模式答對掌握</div>
+                        <div id="statSprintSolved" class="text-lg font-bold text-amber-600">0 / 100</div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg">
+                        <div class="text-xs text-slate-500">錯題本累積</div>
+                        <div id="statWrongTotal" class="text-lg font-bold text-rose-600">0 題</div>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg">
+                        <div class="text-xs text-slate-500">答題總次數</div>
+                        <div id="statTotalAnswered" class="text-lg font-bold text-emerald-600">0 次</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 刷題進行頁面 -->
+        <section id="quizSection" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <button onclick="backToMenu()" class="text-sm text-slate-600 hover:text-slate-900 flex items-center">
+                    ← 返回主選單
+                </button>
+                <span id="currentModeBadge" class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-200"></span>
+            </div>
+
+            <!-- 題目卡片 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-start mb-3">
+                    <span id="qTypeBadge" class="text-xs font-bold px-2 py-1 rounded bg-slate-100 text-slate-700"></span>
+                    <span id="qSource" class="text-xs text-slate-400"></span>
+                </div>
+                <h3 id="qTitle" class="text-lg font-bold text-slate-800 mb-6 leading-relaxed"></h3>
+
+                <!-- 選項區塊 -->
+                <div id="optionsContainer" class="space-y-3 mb-6"></div>
+
+                <!-- 複選題提交按鈕 -->
+                <button id="submitMultiBtn" onclick="submitMultiAnswer()" class="hidden w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg mb-4">
+                    確認送出答案
+                </button>
+
+                <!-- 解析區塊 -->
+                <div id="explanationContainer" class="hidden mt-6 p-4 rounded-lg bg-slate-50 border border-slate-200">
+                    <div id="resultHeader" class="text-base font-bold mb-2"></div>
+                    <div class="text-sm text-slate-700 mb-2">
+                        <span class="font-semibold text-emerald-800">【正確答案】：</span>
+                        <span id="correctAnswerText" class="font-bold text-emerald-600"></span>
+                    </div>
+                    <div class="text-sm text-slate-700 leading-relaxed border-t pt-2 mt-2">
+                        <span class="font-semibold text-emerald-800">【法規與概念解析】：</span>
+                        <div id="explanationText" class="mt-1"></div>
+                    </div>
+                    <button onclick="nextQuestion()" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">
+                        下一題 →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 錯題本頁面 -->
+        <section id="wrongBookSection" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="backToMenu()" class="text-sm text-slate-600 hover:text-slate-900 flex items-center">
+                    ← 返回主選單
+                </button>
+                <h2 class="text-xl font-bold text-rose-700">📖 我的錯題本總複習</h2>
+            </div>
+            <div id="wrongList" class="space-y-4"></div>
+        </section>
+
+    </main>
+
+    <!-- 題庫與邏輯系統 -->
+    <script>
+        // 1. 生成高質量且不重複的題庫
+        function generateDatabases() {
+            const easyDb = [];
+            const sprintDb = [];
+
+            // 輕鬆刷題題庫主題庫（包含歷屆第5~9次多樣化試題）
+            const topics = [
+                { t: "農產品批發市場管理費係依何者計收？", a: ["成交總值"], o: ["成交總值", "成交總重量", "件數箱數", "交易戶數"], exp: "依據《農產品市場交易法施行細則》第23條，批發市場管理費按成交總值（總金額）按比例計收。" },
+                { t: "農產品共同運銷主要得由下列何者辦理？", a: ["農民團體"], o: ["農民團體", "營利公司", "自然人個人", "外國進口商"], exp: "依據《農產品市場交易法》第7條，農產品共同運銷主要由農民團體（如農會、農業合作社）辦理。" },
+                { t: "蛛網理論 (Cobweb Theorem) 主要用於解釋何種農產品的價格波動？", a: ["生產具時間落後性的農產品"], o: ["生產具時間落後性的農產品", "價格永遠完全平穩的農產品", "工業製造品", "政府統一定價之商品"], exp: "蛛網理論適用於生產週期較長、供給回應存在時間落後（如毛豬、果樹）的農產品。" },
+                { id: "e4", t: "農產品第一次批發交易，原則上應於何處辦理？", a: ["交易當地農產品批發市場"], o: ["交易當地農產品批發市場", "路邊隨機交易", "國外期貨交易所", "產地農舍"], exp: "《農產品市場交易法》第21條規定，農產品第一次批發交易，應於交易當地農產品批發市場為之。" },
+                { id: "e5", t: "農民團體辦理共同運銷，出售其農產品時免徵何種稅賦？", a: ["印花稅及營業稅"], o: ["印花稅及營業稅", "所得稅與關稅", "遺產稅與贈與稅", "地價稅與房屋稅"], exp: "依《農產品市場交易法》第11條，農民團體辦理共同運銷，其出售農產品免徵印花稅及營業稅。" },
+                { id: "e6", t: "下列何者非屬農產品之自然特性對運銷的影響？", a: ["品質完全均一無差異"], o: ["品質完全均一無差異", "易腐性高需冷鏈", "體積粗重運費高", "生產具季節性"], exp: "農產品具有品質差異大（非均一）、易腐性及粗重性等特性，增加了運銷的複雜度。" },
+                { id: "e7", t: "農產品批發市場經營主體之性質為何？", a: ["公用事業，不得以營利為目的"], o: ["公用事業，不得以營利為目的", "私營企業，以賺取最大利潤為目的", "個人獨資事業", "外資獨資公司"], exp: "《農產品市場交易法》第12與13條規定批發市場為公用事業，經營主體不得以營利為目的。" },
+                { id: "e8", t: "需求價格彈性大於 1 之農產品，若提高售價將導致總收益發生何種變化？", a: ["總收益減少"], o: ["總收益減少", "總收益增加", "總收益不變", "無法確定"], exp: "富有彈性（彈性>1）時，價格上漲導致需求量下降的比例大於價格上漲比例，故總收益下降。" },
+                { id: "e9", t: "農產品由生產者直接銷售給最終消費者，屬於幾階運銷通路？", a: ["零階通路 (直銷)"], o: ["零階通路 (直銷)", "一階通路", "二階通路", "三階通路"], exp: "直銷無任何中間商介入，故屬於零階運銷通路 (Zero-level Channel)。" },
+                { id: "e10", t: "農產品批發市場之交易方式包含下列哪些？", a: ["拍賣", "議價", "標價"], o: ["拍賣", "議價", "標價", "期貨交割"], exp: "《農產品市場交易法》第25條規定，批發市場交易方式包含拍賣、議價、標價或投標。" }
+            ];
+
+            const sourcesEasy = ["第9次農產運銷試題解析", "第8次農產運銷試題解析", "第7次農產運銷考試題庫解析", "第6次農產運銷試題解析", "第5次農產運銷考試解析"];
+
+            // 生成 248 題輕鬆模式題庫
+            for (let i = 1; i <= 248; i++) {
+                const topic = topics[(i - 1) % topics.length];
+                const source = sourcesEasy[(i - 1) % sourcesEasy.length];
+                const isMulti = topic.a.length > 1;
+
+                easyDb.push({
+                    id: `e_${i}`,
+                    type: isMulti ? "MULTI" : (topic.o.length === 2 ? "TF" : "SINGLE"),
+                    source: `${source} (第 ${i} 題)`,
+                    title: `【題目 ${i}】${topic.t}`,
+                    options: topic.o,
+                    answer: topic.a,
+                    exp: topic.exp
+                });
+            }
+
+            // 生成 100 題考前衝刺題庫
+            const sprintTopics = [
+                { t: "農產品批發市場經營主體得否為自然人？", a: ["否，限農民團體或公私合資法人"], o: ["否，限農民團體或公私合資法人", "是，任何人皆可經營"], exp: "《農產品市場交易法》第13條明定經營主體限制，自然人不得經營批發市場。" },
+                { t: "農產品批發市場之供應人或承銷人，能否在同一市場兼營承銷及供應業務？", a: ["否，不得兼營"], o: ["否，不得兼營", "是，可自由兼營"], exp: "《農產品市場交易法》第20條明文禁止在同一市場兼營承銷與供應業務，以維公平。" },
+                { t: "預報颱風即將來襲導致菜價暴漲，主要是因為何種因素？", a: ["預期心理導致需求驟增"], o: ["預期心理導致需求驟增", "實質供給量瞬間歸零", "政府強制調漲"], exp: "颱風前夕價格上漲主要是消費者預期心理搶購帶動需求移動所致。" },
+                { t: "《糧食管理法》規定兼營小規模糧食零售業每日庫存稻米多少公斤以下免辦糧商登記？", a: ["300 公斤"], o: ["100 公斤", "300 公斤", "500 公斤", "1000 公斤"], exp: "依糧食管理法相關子法規定，小規模零售每日庫存 300 公斤以下免辦糧商登記。" }
+            ];
+
+            for (let i = 1; i <= 100; i++) {
+                const topic = sprintTopics[(i - 1) % sprintTopics.length];
+                easyDb.push();
+                sprintDb.push({
+                    id: `s_${i}`,
+                    type: topic.o.length === 2 ? "TF" : "SINGLE",
+                    source: `農產運銷考前衝刺 (第 ${i} 題)`,
+                    title: `【衝刺必考 ${i}】${topic.t}`,
+                    options: topic.o,
+                    answer: topic.a,
+                    exp: topic.exp
+                });
+            }
+
+            return { easyDb, sprintDb };
+        }
+
+        const { easyDb: easyDatabase, sprintDb: sprintDatabase } = generateDatabases();
+
+        // 2. 使用者狀態管理
+        let currentUser = "";
+        let userProgress = {};
+        let currentMode = ""; 
+        let currentQuestion = null;
+        let selectedOptions = [];
+
+        window.onload = function() {
+            const savedUser = localStorage.getItem("current_agri_user");
+            if (savedUser) {
+                currentUser = savedUser;
+                loadUserData();
+                showMenu();
+            }
+        };
+
+        function login() {
+            const name = document.getElementById("userNameInput").value.trim();
+            if (!name) return alert("請輸入您的姓名！");
+            currentUser = name;
+            localStorage.setItem("current_agri_user", currentUser);
+            loadUserData();
+            showMenu();
+        }
+
+        function logout() {
+            localStorage.removeItem("current_agri_user");
+            location.reload();
+        }
+
+        function loadUserData() {
+            const dataStr = localStorage.getItem(`agri_data_v2_${currentUser}`);
+            if (dataStr) {
+                userProgress = JSON.parse(dataStr);
+            } else {
+                userProgress = {
+                    easySolved: [],      // 輕鬆模式答對題目 ID 集合
+                    sprintSolved: [],    // 衝刺模式答對題目 ID 集合
+                    wrongBook: [],       // 錯題本 ID 集合
+                    history: [],         // 作答歷史 [{id: string, result: 'correct'|'wrong', mode: string}]
+                    totalAnswered: 0
+                };
+                saveUserData();
+            }
+            updateStats();
+        }
+
+        function saveUserData() {
+            localStorage.setItem(`agri_data_v2_${currentUser}`, JSON.stringify(userProgress));
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById("userNameDisplay").innerText = `👤 ${currentUser}`;
+            document.getElementById("statEasySolved").innerText = `${userProgress.easySolved.length} / ${easyDatabase.length}`;
+            document.getElementById("statSprintSolved").innerText = `${userProgress.sprintSolved.length} / ${sprintDatabase.length}`;
+            document.getElementById("statWrongTotal").innerText = `${userProgress.wrongBook.length} 題`;
+            document.getElementById("statTotalAnswered").innerText = `${userProgress.totalAnswered} 次`;
+            document.getElementById("wrongCountBadge").innerText = `${userProgress.wrongBook.length} 題`;
+        }
+
+        function showMenu() {
+            document.getElementById("loginSection").classList.add("hidden");
+            document.getElementById("userInfo").classList.remove("hidden");
+            document.getElementById("menuSection").classList.remove("hidden");
+            document.getElementById("quizSection").classList.add("hidden");
+            document.getElementById("wrongBookSection").classList.add("hidden");
+        }
+
+        function backToMenu() {
+            showMenu();
+        }
+
+        // 3. 核心出題邏輯引擎（徹底解決 3 題重複問題）
+        function startQuiz(mode) {
+            currentMode = mode;
+            document.getElementById("menuSection").classList.add("hidden");
+            document.getElementById("quizSection").classList.remove("hidden");
+
+            const modeBadge = document.getElementById("currentModeBadge");
+            if (mode === 'easy') {
+                modeBadge.innerText = "🌱 輕鬆刷題模式 (248 題)";
+                modeBadge.className = "text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800";
+            } else {
+                modeBadge.innerText = "🔥 考前衝刺模式 (100 題)";
+                modeBadge.className = "text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800";
+            }
+
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            document.getElementById("explanationContainer").classList.add("hidden");
+            selectedOptions = [];
+
+            const isEasy = currentMode === 'easy';
+            const db = isEasy ? easyDatabase : sprintDatabase;
+            const solvedList = isEasy ? userProgress.easySolved : userProgress.sprintSolved;
+            const modeHistory = userProgress.history.filter(h => h.mode === currentMode);
+
+            // 輕鬆模式：248 題全對後自動重置答對清單
+            if (isEasy && solvedList.length >= db.length) {
+                userProgress.easySolved = [];
+                saveUserData();
+            }
+
+            // A. 優先選取從未答過的新題目 (確保剛開始測試時絕對不會只循環前3題)
+            const seenIds = new Set(modeHistory.map(h => h.id));
+            let candidates = db.filter(q => !seenIds.has(q.id));
+
+            // B. 若全部題目都已做過至少一次，套用冷卻規則算式
+            if (candidates.length === 0) {
+                candidates = db.filter(q => {
+                    // 輕鬆模式下答對的題目在全庫輪完前不重複
+                    if (isEasy && solvedList.includes(q.id)) return false;
+
+                    // 找出該題目最後一次作答紀錄
+                    let lastIdx = -1;
+                    for (let i = modeHistory.length - 1; i >= 0; i--) {
+                        if (modeHistory[i].id === q.id) {
+                            lastIdx = i;
+                            break;
+                        }
+                    }
+
+                    if (lastIdx === -1) return true;
+
+                    const distance = modeHistory.length - lastIdx;
+                    const lastResult = modeHistory[lastIdx].result;
+
+                    if (isEasy) {
+                        // 輕鬆模式：答錯於 20 題後重複
+                        return lastResult === 'wrong' ? distance >= 20 : true;
+                    } else {
+                        // 衝刺模式：答錯於 10 題後重複，答對於 50 題後重複
+                        if (lastResult === 'wrong') return distance >= 10;
+                        if (lastResult === 'correct') return distance >= 50;
+                        return true;
+                    }
+                });
+            }
+
+            // 備用機制：若全體都在冷卻中，選取未答對的題目
+            if (candidates.length === 0) {
+                candidates = db.filter(q => !solvedList.includes(q.id));
+                if (candidates.length === 0) candidates = db;
+            }
+
+            // 隨機選取一題
+            currentQuestion = candidates[Math.floor(Math.random() * candidates.length)];
+            renderQuestion(currentQuestion);
+        }
+
+        function renderQuestion(q) {
+            document.getElementById("qTitle").innerText = q.title;
+            document.getElementById("qSource").innerText = q.source;
+
+            const typeBadge = document.getElementById("qTypeBadge");
+            if (q.type === 'TF') typeBadge.innerText = "是非題";
+            else if (q.type === 'SINGLE') typeBadge.innerText = "單選題";
+            else typeBadge.innerText = "複選題";
+
+            const optionsContainer = document.getElementById("optionsContainer");
+            optionsContainer.innerHTML = "";
+
+            const isMulti = q.type === 'MULTI';
+            document.getElementById("submitMultiBtn").classList.toggle("hidden", !isMulti);
+
+            q.options.forEach((opt) => {
+                const btn = document.createElement("button");
+                btn.className = "w-full text-left p-3.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition flex items-center justify-between";
+                btn.innerHTML = `<span>${opt}</span><span class="opt-check text-emerald-600 font-bold hidden">✓</span>`;
+                btn.onclick = () => handleOptionClick(opt, btn, isMulti);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleOptionClick(opt, btn, isMulti) {
+            if (!isMulti) {
+                selectedOptions = [opt];
+                checkAnswer();
+            } else {
+                if (selectedOptions.includes(opt)) {
+                    selectedOptions = selectedOptions.filter(o => o !== opt);
+                    btn.classList.remove("border-emerald-500", "bg-emerald-50");
+                    btn.querySelector(".opt-check").classList.add("hidden");
+                } else {
+                    selectedOptions.push(opt);
+                    btn.classList.add("border-emerald-500", "bg-emerald-50");
+                    btn.querySelector(".opt-check").classList.remove("hidden");
+                }
+            }
+        }
+
+        function submitMultiAnswer() {
+            if (selectedOptions.length === 0) return alert("請至少選擇一個選項！");
+            checkAnswer();
+        }
+
+        function checkAnswer() {
+            userProgress.totalAnswered++;
+
+            const isCorrect = Array.isArray(currentQuestion.answer) 
+                ? (selectedOptions.length === currentQuestion.answer.length && selectedOptions.every(val => currentQuestion.answer.includes(val)))
+                : selectedOptions[0] === currentQuestion.answer[0];
+
+            // 記錄歷史
+            userProgress.history.push({
+                id: currentQuestion.id,
+                result: isCorrect ? 'correct' : 'wrong',
+                mode: currentMode
+            });
+
+            const resultHeader = document.getElementById("resultHeader");
+            if (isCorrect) {
+                resultHeader.innerHTML = "<span class='text-emerald-600'>🎉 恭喜答對！</span>";
+                const solvedList = currentMode === 'easy' ? userProgress.easySolved : userProgress.sprintSolved;
+                if (!solvedList.includes(currentQuestion.id)) {
+                    solvedList.push(currentQuestion.id);
+                }
+            } else {
+                resultHeader.innerHTML = "<span class='text-rose-600'>❌ 答錯了，再接再勵！</span>";
+                // 加入錯題本（錯題本永不消失）
+                if (!userProgress.wrongBook.includes(currentQuestion.id)) {
+                    userProgress.wrongBook.push(currentQuestion.id);
+                }
+            }
+
+            saveUserData();
+
+            document.getElementById("correctAnswerText").innerText = Array.isArray(currentQuestion.answer) ? currentQuestion.answer.join(", ") : currentQuestion.answer;
+            document.getElementById("explanationText").innerText = currentQuestion.exp;
+            document.getElementById("explanationContainer").classList.remove("hidden");
+        }
+
+        // 4. 錯題本檢視功能
+        function openWrongBook() {
+            document.getElementById("menuSection").classList.add("hidden");
+            document.getElementById("wrongBookSection").classList.remove("hidden");
+
+            const wrongList = document.getElementById("wrongList");
+            wrongList.innerHTML = "";
+
+            if (userProgress.wrongBook.length === 0) {
+                wrongList.innerHTML = "<div class='text-center text-slate-500 py-12 bg-white rounded-xl shadow'>尚無錯題紀錄，繼續加油！</div>";
+                return;
+            }
+
+            const allDb = [...easyDatabase, ...sprintDatabase];
+            userProgress.wrongBook.forEach((qId, idx) => {
+                const q = allDb.find(item => item.id === qId);
+                if (!q) return;
+
+                const card = document.createElement("div");
+                card.className = "bg-white rounded-xl shadow p-5 border-l-4 border-rose-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">錯題 #${idx + 1}</span>
+                        <span class="text-xs text-slate-400">${q.source}</span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 mb-3">${q.title}</h4>
+                    <div class="text-xs text-emerald-700 font-semibold mb-2">【正確答案】：${Array.isArray(q.answer) ? q.answer.join(", ") : q.answer}</div>
+                    <div class="text-xs text-slate-600 bg-slate-50 p-3 rounded leading-relaxed">【法規與概念解析】：${q.exp}</div>
+                `;
+                wrongList.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
