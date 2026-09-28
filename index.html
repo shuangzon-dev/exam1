@@ -1358,17 +1358,20 @@
 
             for (let i = 1; i <= 100; i++) {
                 const topic = sprintTopics[(i - 1) % sprintTopics.length];
+                let targetType = "SINGLE";
+                if (topic.type === 'tf') targetType = "TF";
+                else if (topic.type === 'multiple') targetType = "MULTI";
                 sprintDb.push({
                     id: `s_${i}`,
-                    type: topic.options.length === 2 ? "TF" : "SINGLE",
-                    source: `農產運銷考前衝刺 (第 ${i} 題)`,
+                    type: targetType,
+                    source: `${topic.category} (第 ${i} 題)`,
                     title: `【衝刺必考 ${i}】${topic.question}`,
                     options: topic.options,
                     answer: topic.answer,
                     exp: topic.explanation
                 });
             }
-
+            
             return { easyDb, sprintDb };
         }
 
