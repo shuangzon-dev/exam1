@@ -1354,7 +1354,7 @@
     answer: ["(A) 契約供應", "(B) 保價運銷", "(C) 融通資金"],
     explanation: "依據《農產品市場交易法》第 23 條規定：「農產品批發市場為確保貨源，得視事實需要，辦理契約供應、保價運銷、融通資金及其他適當措施。」"
   }
-            ];
+];
 
             for (let i = 1; i <= 100; i++) {
                 const topic = sprintTopics[(i - 1) % sprintTopics.length];
@@ -1375,17 +1375,17 @@
             return { easyDb, sprintDb };
         }
 
-        const { easyDb: easyDatabase, sprintDb: sprintDatabase } = generateDatabases();
+       // 全域變數宣告
+        const { easyDb, sprintDb } = generateDatabases();
+        let currentUser = null;
+        let currentMode = '';
+        let currentQueue = [];
+        let currentIndex = 0;
+        let userStats = { easySolved: 0, sprintSolved: 0, totalAnswered: 0, wrongBook: [] };
 
-        // 使用者狀態管理
-        let currentUser = "";
-        let userProgress = {};
-        let currentMode = ""; 
-        let currentQuestion = null;
-        let selectedOptions = [];
-
+        // 頁面切換與初始化
         window.onload = function() {
-            const savedUser = localStorage.getItem("current_agri_user");
+            const savedUser = localStorage.getItem('agri_user');
             if (savedUser) {
                 currentUser = savedUser;
                 loadUserData();
@@ -1394,241 +1394,214 @@
         };
 
         function login() {
-            const name = document.getElementById("userNameInput").value.trim();
-            if (!name) return alert("請輸入您的姓名！");
-            currentUser = name;
-            localStorage.setItem("current_agri_user", currentUser);
+            const nameInput = document.getElementById('userNameInput').value.trim();
+            if (!nameInput) {
+                alert('請輸入姓名或暱稱！');
+                return;
+            }
+            currentUser = nameInput;
+            localStorage.setItem('agri_user', currentUser);
             loadUserData();
             showMenu();
         }
 
         function logout() {
-            localStorage.removeItem("current_agri_user");
+            localStorage.removeItem('agri_user');
             location.reload();
         }
 
         function loadUserData() {
-            const dataStr = localStorage.getItem(`agri_data_v2_${currentUser}`);
-            if (dataStr) {
-                userProgress = JSON.parse(dataStr);
-            } else {
-                userProgress = {
-                    easySolved: [],
-                    sprintSolved: [],
-                    wrongBook: [],
-                    history: [],
-                    totalAnswered: 0
-                };
-                saveUserData();
+            const data = localStorage.getItem(`agri_data_${currentUser}`);
+            if (data) {
+                userStats = JSON.parse(data);
             }
-            updateStats();
+            document.getElementById('userNameDisplay').innerText = `👤 ${currentUser}`;
+            document.getElementById('userInfo').classList.remove('hidden');
+            updateStatDisplay();
         }
 
         function saveUserData() {
-            localStorage.setItem(`agri_data_v2_${currentUser}`, JSON.stringify(userProgress));
-            updateStats();
+            if (currentUser) {
+                localStorage.setItem(`agri_data_${currentUser}`, JSON.stringify(userStats));
+            }
+            updateStatDisplay();
         }
 
-        function updateStats() {
-            document.getElementById("userNameDisplay").innerText = `👤 ${currentUser}`;
-            document.getElementById("statEasySolved").innerText = `${userProgress.easySolved.length} / ${easyDatabase.length}`;
-            document.getElementById("statSprintSolved").innerText = `${userProgress.sprintSolved.length} / ${sprintDatabase.length}`;
-            document.getElementById("statWrongTotal").innerText = `${userProgress.wrongBook.length} 題`;
-            document.getElementById("statTotalAnswered").innerText = `${userProgress.totalAnswered} 次`;
-            document.getElementById("wrongCountBadge").innerText = `${userProgress.wrongBook.length} 題`;
+        function updateStatDisplay() {
+            document.getElementById('statEasySolved').innerText = `${userStats.easySolved} / ${easyDb.length}`;
+            document.getElementById('statSprintSolved').innerText = `${userStats.sprintSolved} / ${sprintDb.length}`;
+            document.getElementById('statWrongTotal').innerText = `${userStats.wrongBook.length} 題`;
+            document.getElementById('statTotalAnswered').innerText = `${userStats.totalAnswered} 次`;
+            document.getElementById('wrongCountBadge').innerText = `${userStats.wrongBook.length} 題`;
         }
 
         function showMenu() {
-            document.getElementById("loginSection").classList.add("hidden");
-            document.getElementById("userInfo").classList.remove("hidden");
-            document.getElementById("menuSection").classList.remove("hidden");
-            document.getElementById("quizSection").classList.add("hidden");
-            document.getElementById("wrongBookSection").classList.add("hidden");
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('quizSection').classList.add('hidden');
+            document.getElementById('wrongBookSection').classList.add('hidden');
+            document.getElementById('menuSection').classList.remove('hidden');
         }
 
         function backToMenu() {
             showMenu();
         }
 
+        // 刷題邏輯
         function startQuiz(mode) {
             currentMode = mode;
-            document.getElementById("menuSection").classList.add("hidden");
-            document.getElementById("quizSection").classList.remove("hidden");
-
-            const modeBadge = document.getElementById("currentModeBadge");
             if (mode === 'easy') {
-                modeBadge.innerText = "🌱 輕鬆刷題模式 (248 題)";
-                modeBadge.className = "text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800";
-            } else {
-                modeBadge.innerText = "🔥 考前衝刺模式 (100 題)";
-                modeBadge.className = "text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800";
+                currentQueue = [...easyDb];
+                document.getElementById('currentModeBadge').innerText = '🌱 輕鬆刷題模式';
+            } else if (mode === 'sprint') {
+                currentQueue = [...sprintDb];
+                document.getElementById('currentModeBadge').innerText = '🔥 考前衝刺模式';
             }
+            // 隨機打亂題目
+            currentQueue.sort(() => Math.random() - 0.5);
+            currentIndex = 0;
 
-            nextQuestion();
+            document.getElementById('menuSection').classList.add('hidden');
+            document.getElementById('quizSection').classList.remove('hidden');
+            renderQuestion();
         }
 
-        function nextQuestion() {
-            document.getElementById("explanationContainer").classList.add("hidden");
-            selectedOptions = [];
-
-            const isEasy = currentMode === 'easy';
-            const db = isEasy ? easyDatabase : sprintDatabase;
-            const solvedList = isEasy ? userProgress.easySolved : userProgress.sprintSolved;
-            const modeHistory = userProgress.history.filter(h => h.mode === currentMode);
-
-            if (isEasy && solvedList.length >= db.length) {
-                userProgress.easySolved = [];
-                saveUserData();
-            }
-
-            const seenIds = new Set(modeHistory.map(h => h.id));
-            let candidates = db.filter(q => !seenIds.has(q.id));
-
-            if (candidates.length === 0) {
-                candidates = db.filter(q => {
-                    if (isEasy && solvedList.includes(q.id)) return false;
-
-                    let lastIdx = -1;
-                    for (let i = modeHistory.length - 1; i >= 0; i--) {
-                        if (modeHistory[i].id === q.id) {
-                            lastIdx = i;
-                            break;
-                        }
-                    }
-
-                    if (lastIdx === -1) return true;
-
-                    const distance = modeHistory.length - lastIdx;
-                    const lastResult = modeHistory[lastIdx].result;
-
-                    if (isEasy) {
-                        return lastResult === 'wrong' ? distance >= 20 : true;
-                    } else {
-                        if (lastResult === 'wrong') return distance >= 10;
-                        if (lastResult === 'correct') return distance >= 50;
-                        return true;
-                    }
-                });
-            }
-
-            if (candidates.length === 0) {
-                candidates = db.filter(q => !solvedList.includes(q.id));
-                if (candidates.length === 0) candidates = db;
-            }
-
-            currentQuestion = candidates[Math.floor(Math.random() * candidates.length)];
-            renderQuestion(currentQuestion);
-        }
-
-        function renderQuestion(q) {
-            document.getElementById("qTitle").innerText = q.title;
-            document.getElementById("qSource").innerText = q.source;
-
-            const typeBadge = document.getElementById("qTypeBadge");
-            if (q.type === 'TF') typeBadge.innerText = "是非題";
-            else if (q.type === 'SINGLE') typeBadge.innerText = "單選題";
-            else typeBadge.innerText = "複選題";
-
-            const optionsContainer = document.getElementById("optionsContainer");
-            optionsContainer.innerHTML = "";
-
-            const isMulti = q.type === 'MULTI';
-            document.getElementById("submitMultiBtn").classList.toggle("hidden", !isMulti);
-
-            q.options.forEach((opt) => {
-                const btn = document.createElement("button");
-                btn.className = "w-full text-left p-3.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition flex items-center justify-between";
-                btn.innerHTML = `<span>${opt}</span><span class="opt-check text-emerald-600 font-bold hidden">✓</span>`;
-                btn.onclick = () => handleOptionClick(opt, btn, isMulti);
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        function handleOptionClick(opt, btn, isMulti) {
-            if (!isMulti) {
-                selectedOptions = [opt];
-                checkAnswer();
-            } else {
-                if (selectedOptions.includes(opt)) {
-                    selectedOptions = selectedOptions.filter(o => o !== opt);
-                    btn.classList.remove("border-emerald-500", "bg-emerald-50");
-                    btn.querySelector(".opt-check").classList.add("hidden");
-                } else {
-                    selectedOptions.push(opt);
-                    btn.classList.add("border-emerald-500", "bg-emerald-50");
-                    btn.querySelector(".opt-check").classList.remove("hidden");
-                }
-            }
-        }
-
-        function submitMultiAnswer() {
-            if (selectedOptions.length === 0) return alert("請至少選擇一個選項！");
-            checkAnswer();
-        }
-
-        function checkAnswer() {
-            userProgress.totalAnswered++;
-
-            const isCorrect = Array.isArray(currentQuestion.answer) 
-                ? (selectedOptions.length === currentQuestion.answer.length && selectedOptions.every(val => currentQuestion.answer.includes(val)))
-                : selectedOptions[0] === currentQuestion.answer[0];
-
-            userProgress.history.push({
-                id: currentQuestion.id,
-                result: isCorrect ? 'correct' : 'wrong',
-                mode: currentMode
-            });
-
-            const resultHeader = document.getElementById("resultHeader");
-            if (isCorrect) {
-                resultHeader.innerHTML = "<span class='text-emerald-600'>🎉 恭喜答對！</span>";
-                const solvedList = currentMode === 'easy' ? userProgress.easySolved : userProgress.sprintSolved;
-                if (!solvedList.includes(currentQuestion.id)) {
-                    solvedList.push(currentQuestion.id);
-                }
-            } else {
-                resultHeader.innerHTML = "<span class='text-rose-600'>❌ 答錯了，再接再勵！</span>";
-                if (!userProgress.wrongBook.includes(currentQuestion.id)) {
-                    userProgress.wrongBook.push(currentQuestion.id);
-                }
-            }
-
-            saveUserData();
-
-            document.getElementById("correctAnswerText").innerText = Array.isArray(currentQuestion.answer) ? currentQuestion.answer.join(", ") : currentQuestion.answer;
-            document.getElementById("explanationText").innerText = currentQuestion.exp;
-            document.getElementById("explanationContainer").classList.remove("hidden");
-        }
-
-        function openWrongBook() {
-            document.getElementById("menuSection").classList.add("hidden");
-            document.getElementById("wrongBookSection").classList.remove("hidden");
-
-            const wrongList = document.getElementById("wrongList");
-            wrongList.innerHTML = "";
-
-            if (userProgress.wrongBook.length === 0) {
-                wrongList.innerHTML = "<div class='text-center text-slate-500 py-12 bg-white rounded-xl shadow'>尚無錯題紀錄，繼續加油！</div>";
+        function renderQuestion() {
+            if (currentIndex >= currentQueue.length) {
+                alert('恭喜您已完成本模式的所有題目！');
+                backToMenu();
                 return;
             }
 
-            const allDb = [...easyDatabase, ...sprintDatabase];
-            userProgress.wrongBook.forEach((qId, idx) => {
-                const q = allDb.find(item => item.id === qId);
-                if (!q) return;
+            const q = currentQueue[currentIndex];
+            document.getElementById('qSource').innerText = q.category;
+            document.getElementById('qTitle').innerText = `${currentIndex + 1}. ${q.question}`;
+            document.getElementById('explanationContainer').classList.add('hidden');
 
-                const card = document.createElement("div");
-                card.className = "bg-white rounded-xl shadow p-5 border-l-4 border-rose-500";
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            const submitBtn = document.getElementById('submitMultiBtn');
+
+            if (q.type === 'tf' || q.type === 'single') {
+                submitBtn.classList.add('hidden');
+                document.getElementById('qTypeBadge').innerText = q.type === 'tf' ? '是非題' : '單選題';
+
+                q.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-3.5 rounded-lg border border-slate-200 hover:bg-emerald-50 hover:border-emerald-300 transition font-medium";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkSingleAnswer(opt, q);
+                    optionsContainer.appendChild(btn);
+                });
+            } else if (q.type === 'multiple') {
+                submitBtn.classList.remove('hidden');
+                document.getElementById('qTypeBadge').innerText = '複選題';
+
+                q.options.forEach((opt, idx) => {
+                    const label = document.createElement('label');
+                    label.className = "flex items-center p-3.5 rounded-lg border border-slate-200 hover:bg-emerald-50 transition cursor-pointer";
+                    label.innerHTML = `
+                        <input type="checkbox" value="${opt}" class="multi-opt w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 mr-3">
+                        <span>${opt}</span>
+                    `;
+                    optionsContainer.appendChild(label);
+                });
+            }
+        }
+
+        function checkSingleAnswer(selected, q) {
+            userStats.totalAnswered++;
+            let isCorrect = false;
+
+            if (Array.isArray(q.answer)) {
+                isCorrect = q.answer.includes(selected);
+            } else {
+                isCorrect = (q.answer === selected) || (selected.startsWith(q.answer));
+            }
+
+            showExplanation(isCorrect, q);
+        }
+
+        function submitMultiAnswer() {
+            const q = currentQueue[currentIndex];
+            const selectedOpts = Array.from(document.querySelectorAll('.multi-opt:checked')).map(cb => cb.value);
+
+            if (selectedOpts.length === 0) {
+                alert('請至少選擇一個選項！');
+                return;
+            }
+
+            userStats.totalAnswered++;
+
+            // 比對答案
+            let isCorrect = false;
+            const correctAnsArray = q.answer;
+
+            const selectedClean = selectedOpts.map(s => s.substring(0, 4));
+            const correctClean = correctAnsArray.map(c => c.substring(0, 4));
+
+            if (selectedClean.length === correctClean.length && selectedClean.every(val => correctClean.includes(val))) {
+                isCorrect = true;
+            }
+
+            showExplanation(isCorrect, q);
+        }
+
+        function showExplanation(isCorrect, q) {
+            const resultHeader = document.getElementById('resultHeader');
+            if (isCorrect) {
+                resultHeader.innerText = '✅ 回答正確！';
+                resultHeader.className = 'text-base font-bold mb-2 text-emerald-600';
+                if (currentMode === 'easy') userStats.easySolved++;
+                if (currentMode === 'sprint') userStats.sprintSolved++;
+            } else {
+                resultHeader.innerText = '❌ 回答錯誤！已加入錯題本';
+                resultHeader.className = 'text-base font-bold mb-2 text-rose-600';
+
+                // 加入錯題本（不重複新增）
+                if (!userStats.wrongBook.some(item => item.id === q.id)) {
+                    userStats.wrongBook.push(q);
+                }
+            }
+
+            const ansText = Array.isArray(q.answer) ? q.answer.join(', ') : q.answer;
+            document.getElementById('correctAnswerText').innerText = ansText;
+            document.getElementById('explanationText').innerText = q.explanation;
+            document.getElementById('explanationContainer').classList.remove('hidden');
+
+            saveUserData();
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            renderQuestion();
+        }
+
+        // 錯題本檢視
+        function openWrongBook() {
+            document.getElementById('menuSection').classList.add('hidden');
+            document.getElementById('wrongBookSection').classList.remove('hidden');
+
+            const container = document.getElementById('wrongList');
+            container.innerHTML = '';
+
+            if (userStats.wrongBook.length === 0) {
+                container.innerHTML = `<div class="bg-white p-8 rounded-xl shadow text-center text-slate-500">目前沒有累積錯題，太棒了！🎉</div>`;
+                return;
+            }
+
+            userStats.wrongBook.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-xl shadow border-l-4 border-rose-500";
+                const ansText = Array.isArray(q.answer) ? q.answer.join(', ') : q.answer;
+
                 card.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xs bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">錯題 #${idx + 1}</span>
-                        <span class="text-xs text-slate-400">${q.source}</span>
-                    </div>
-                    <h4 class="font-bold text-slate-800 mb-3">${q.title}</h4>
-                    <div class="text-xs text-emerald-700 font-semibold mb-2">【正確答案】：${Array.isArray(q.answer) ? q.answer.join(", ") : q.answer}</div>
-                    <div class="text-xs text-slate-600 bg-slate-50 p-3 rounded leading-relaxed">【法規與概念解析】：${q.exp}</div>
+                    <div class="text-xs text-slate-400 mb-1">${q.category}</div>
+                    <div class="font-bold text-slate-800 mb-3">${idx + 1}. ${q.question}</div>
+                    <div class="text-sm text-emerald-700 font-semibold mb-2">正確答案：${ansText}</div>
+                    <div class="text-xs text-slate-600 bg-slate-50 p-3 rounded leading-relaxed border">${q.explanation}</div>
                 `;
-                wrongList.appendChild(card);
+                container.appendChild(card);
             });
         }
     </script>
