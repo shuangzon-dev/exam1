@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>農產運銷刷題神器 - 雲端同步版</title>
+    <title>農產運銷刷題神器 - 雲端雙題庫版</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,7 @@
 
     <!-- 頂部導覽列 -->
     <header class="bg-emerald-700 text-white shadow-md">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-xl md:text-2xl font-bold flex items-center">
                 🌾 農產運銷刷題神器
             </h1>
@@ -24,7 +24,7 @@
     </header>
 
     <!-- 主體內容 -->
-    <main class="max-w-4xl mx-auto px-4 py-6">
+    <main class="max-w-5xl mx-auto px-4 py-6">
 
         <!-- 登入區塊 -->
         <section id="loginSection" class="bg-white rounded-xl shadow-md p-6 max-w-md mx-auto my-12 text-center">
@@ -36,16 +36,17 @@
 
         <!-- 主選單 -->
         <section id="menuSection" class="hidden">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                
                 <!-- 輕鬆刷題卡片 -->
                 <div class="bg-white rounded-xl shadow p-5 border-t-4 border-blue-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-lg font-bold text-blue-700">🌱 輕鬆刷題模式</h3>
+                            <h3 class="text-lg font-bold text-blue-700">🌱 輕鬆刷題</h3>
                             <span id="easyTotalBadge" class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">載入中...</span>
                         </div>
                         <p class="text-xs text-slate-600 mb-4">
-                            隨機抽取全體庫題目，適合平時全方位複習與熟悉題型。
+                            隨機抽取基礎題庫題目，適合平時全方位複習與熟悉題型。
                         </p>
                     </div>
                     <button onclick="startQuiz('easy')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-sm transition">進入輕鬆刷題</button>
@@ -55,29 +56,44 @@
                 <div class="bg-white rounded-xl shadow p-5 border-t-4 border-amber-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-lg font-bold text-amber-700">🔥 考前衝刺模式</h3>
-                            <span id="sprintTotalBadge" class="text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded">錯題優先</span>
+                            <h3 class="text-lg font-bold text-amber-700">🔥 考前衝刺</h3>
+                            <span id="sprintTotalBadge" class="text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded">載入中...</span>
                         </div>
                         <p class="text-xs text-slate-600 mb-4">
-                            優先從您的「錯題本」抽題復習，錯題不足時自動補充隨機題。
+                            採用衝刺專用獨立題庫，隨機抽題挑戰，高強度練題！
                         </p>
                     </div>
-                    <button onclick="startQuiz('sprint')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg text-sm transition">進入錯題衝刺</button>
+                    <button onclick="startQuiz('sprint')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg text-sm transition">進入考前衝刺</button>
                 </div>
 
-                <!-- 錯題本卡片 -->
+                <!-- 錯題本複習卡片 -->
+                <div class="bg-white rounded-xl shadow p-5 border-t-4 border-purple-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-purple-700">🎯 錯題本複習</h3>
+                            <span id="wrongQuizBadge" class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded">0 題待練</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4">
+                            隨機不重複出題，錯題累積答對 3 次將自動清除畢業！
+                        </p>
+                    </div>
+                    <button onclick="startQuiz('wrongReview')" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-lg text-sm transition">進入錯題複習</button>
+                </div>
+
+                <!-- 錯題本總覽卡片 -->
                 <div class="bg-white rounded-xl shadow p-5 border-t-4 border-rose-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-lg font-bold text-rose-700">📖 錯題本總覽</h3>
+                            <h3 class="text-lg font-bold text-rose-700">📖 錯題總覽</h3>
                             <span id="wrongCountBadge" class="text-xs bg-rose-100 text-rose-800 font-semibold px-2 py-0.5 rounded">0 題</span>
                         </div>
                         <p class="text-xs text-slate-600 mb-4">
-                            清單式回顧所有答錯題目、正確答案與詳細法規解析。
+                            清單式回顧所有答錯題目、累積答對次數與詳細解析。
                         </p>
                     </div>
                     <button onclick="openWrongBook()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 rounded-lg text-sm transition">查看錯題清單</button>
                 </div>
+
             </div>
 
             <!-- 使用者統計資訊 -->
@@ -85,15 +101,15 @@
                 <h4 class="text-sm font-bold text-slate-700 mb-2 border-b pb-2">📊 個人學習統計</h4>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div class="bg-slate-50 p-3 rounded-lg">
-                        <div class="text-xs text-slate-500">輕鬆模式已掌握</div>
+                        <div class="text-xs text-slate-500">輕鬆模式掌握度</div>
                         <div id="statEasySolved" class="text-lg font-bold text-blue-600">0 / 0</div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-lg">
-                        <div class="text-xs text-slate-500">衝刺模式已掌握</div>
+                        <div class="text-xs text-slate-500">衝刺模式掌握度</div>
                         <div id="statSprintSolved" class="text-lg font-bold text-amber-600">0 / 0</div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-lg">
-                        <div class="text-xs text-slate-500">錯題本累積題數</div>
+                        <div class="text-xs text-slate-500">錯題本未畢業題數</div>
                         <div id="statWrongTotal" class="text-lg font-bold text-rose-600">0 題</div>
                     </div>
                     <div class="bg-slate-50 p-3 rounded-lg">
@@ -116,7 +132,10 @@
             <!-- 題目卡片 -->
             <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
                 <div class="flex justify-between items-start mb-3">
-                    <span id="qTypeBadge" class="text-xs font-bold px-2 py-1 rounded bg-slate-100 text-slate-700"></span>
+                    <div class="flex gap-2">
+                        <span id="qTypeBadge" class="text-xs font-bold px-2 py-1 rounded bg-slate-100 text-slate-700"></span>
+                        <span id="wrongStreakBadge" class="hidden text-xs font-bold px-2 py-1 rounded bg-purple-100 text-purple-700"></span>
+                    </div>
                     <span id="qSource" class="text-xs text-slate-400"></span>
                 </div>
                 <h3 id="qTitle" class="text-lg font-bold text-slate-800 mb-6 leading-relaxed"></h3>
@@ -132,6 +151,7 @@
                 <!-- 解析區塊 -->
                 <div id="explanationContainer" class="hidden mt-6 p-4 rounded-lg bg-slate-50 border border-slate-200">
                     <div id="resultHeader" class="text-base font-bold mb-2"></div>
+                    <div id="wrongStreakNotice" class="hidden text-xs font-semibold mb-2 text-purple-700"></div>
                     <div class="text-sm text-slate-700 mb-2">
                         <span class="font-semibold text-emerald-800">【正確答案】：</span>
                         <span id="correctAnswerText" class="font-bold text-emerald-600"></span>
@@ -163,34 +183,50 @@
     <!-- 系統邏輯腳本 -->
     <script>
         // 全域變數
-        let easyDb = [];
+        let easyDb = [];          // 輕鬆刷題資料庫 (questions.json)
+        let sprintDb = [];        // 考前衝刺資料庫 (sprint_questions.json)
         let currentUser = "";
         let currentMode = ""; 
         let currentQuestions = [];
         let currentIndex = 0;
         let userAnswers = {};
+        
+        // 錯題本結構：[{ ...questionData, correctStreak: 0 }]
         let wrongBook = []; 
+        let wrongQueue = [];      // 錯題複習輪播佇列 (保證每輪不重複出題)
+
         let solvedEasy = new Set();
         let solvedSprint = new Set();
         let totalAnswered = 0;
 
         window.onload = async function() {
-            await initDatabase();
+            await initDatabases();
             loadUserData();
         };
 
-        // 從遠端 JSON 讀取最新題庫（帶時間戳記防止 HTTP 快取）
-        async function initDatabase() {
+        // 讀取輕鬆刷題與考前衝刺兩組獨立 JSON 檔
+        async function initDatabases() {
+            const timestamp = new Date().getTime();
             try {
-                const response = await fetch('questions.json?v=' + new Date().getTime());
-                if (!response.ok) {
-                    throw new Error('無法取得遠端題目檔');
+                // 1. 載入輕鬆刷題庫
+                const easyRes = await fetch(`questions.json?v=${timestamp}`);
+                if (easyRes.ok) {
+                    easyDb = await easyRes.json();
+                    document.getElementById('easyTotalBadge').innerText = `共 ${easyDb.length} 題`;
                 }
-                easyDb = await response.json();
-                document.getElementById('easyTotalBadge').innerText = `共 ${easyDb.length} 題`;
+
+                // 2. 載入考前衝刺題庫
+                const sprintRes = await fetch(`sprint_questions.json?v=${timestamp}`);
+                if (sprintRes.ok) {
+                    sprintDb = await sprintRes.json();
+                    document.getElementById('sprintTotalBadge').innerText = `共 ${sprintDb.length} 題`;
+                } else {
+                    // 若尚未提供衝刺題庫，預設先降級降為 0 題
+                    sprintDb = [];
+                    document.getElementById('sprintTotalBadge').innerText = `共 0 題`;
+                }
             } catch (error) {
                 console.error("載入題庫失敗：", error);
-                alert("無法載入雲端題庫，請確認 questions.json 檔案是否存在！");
             }
         }
 
@@ -203,8 +239,12 @@
                 document.getElementById('userInfo').classList.remove('hidden');
                 document.getElementById('menuSection').classList.remove('hidden');
 
+                // 載入錯題資料並補齊 correctStreak 欄位
                 const wrongData = localStorage.getItem(`wrong_${currentUser}`);
                 wrongBook = wrongData ? JSON.parse(wrongData) : [];
+                wrongBook.forEach(item => {
+                    if (item.correctStreak === undefined) item.correctStreak = 0;
+                });
 
                 const statsData = localStorage.getItem(`stats_${currentUser}`);
                 if (statsData) {
@@ -245,11 +285,13 @@
 
         function updateStatsUI() {
             document.getElementById('statEasySolved').innerText = `${solvedEasy.size} / ${easyDb.length}`;
-            document.getElementById('statSprintSolved').innerText = `${solvedSprint.size} / ${easyDb.length}`;
+            document.getElementById('statSprintSolved').innerText = `${solvedSprint.size} / ${sprintDb.length}`;
             document.getElementById('statWrongTotal').innerText = `${wrongBook.length} 題`;
             document.getElementById('statTotalAnswered').innerText = `${totalAnswered} 次`;
             document.getElementById('wrongCountBadge').innerText = `${wrongBook.length} 題`;
+            document.getElementById('wrongQuizBadge').innerText = `${wrongBook.length} 題待練`;
             document.getElementById('easyTotalBadge').innerText = `共 ${easyDb.length} 題`;
+            document.getElementById('sprintTotalBadge').innerText = `共 ${sprintDb.length} 題`;
         }
 
         function backToMenu() {
@@ -261,32 +303,41 @@
 
         function startQuiz(mode) {
             currentMode = mode;
+
+            if (mode === 'easy') {
+                if (easyDb.length === 0) {
+                    alert('輕鬆刷題庫為空，請確認 questions.json 檔！');
+                    return;
+                }
+                currentQuestions = [...easyDb].sort(() => 0.5 - Math.random());
+            } else if (mode === 'sprint') {
+                if (sprintDb.length === 0) {
+                    alert('考前衝刺題庫為空，請確認 sprint_questions.json 檔！');
+                    return;
+                }
+                currentQuestions = [...sprintDb].sort(() => 0.5 - Math.random());
+            } else if (mode === 'wrongReview') {
+                if (wrongBook.length === 0) {
+                    alert('🎉 您的錯題本目前是空的，沒有需要複習的錯題！');
+                    return;
+                }
+                // 初始化錯題本佇列（洗牌後依序練習，保證本輪不重複）
+                wrongQueue = [...wrongBook].sort(() => 0.5 - Math.random());
+            }
+
             document.getElementById('menuSection').classList.add('hidden');
             document.getElementById('quizSection').classList.remove('hidden');
 
             const badge = document.getElementById('currentModeBadge');
-            
             if (mode === 'easy') {
                 badge.innerText = '🌱 輕鬆刷題模式 (全題庫隨機)';
                 badge.className = 'text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800';
-                currentQuestions = [...easyDb].sort(() => 0.5 - Math.random());
             } else if (mode === 'sprint') {
-                badge.innerText = '🔥 考前衝刺模式 (錯題優先抽題)';
+                badge.innerText = '🔥 考前衝刺模式 (獨立衝刺題庫)';
                 badge.className = 'text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800';
-                
-                if (wrongBook.length > 0) {
-                    let shuffledWrong = [...wrongBook].sort(() => 0.5 - Math.random());
-                    if (shuffledWrong.length < 15) {
-                        const wrongIds = new Set(shuffledWrong.map(q => q.id));
-                        const remaining = easyDb.filter(q => !wrongIds.has(q.id)).sort(() => 0.5 - Math.random());
-                        currentQuestions = [...shuffledWrong, ...remaining.slice(0, 15 - shuffledWrong.length)];
-                    } else {
-                        currentQuestions = shuffledWrong;
-                    }
-                } else {
-                    alert('目前錯題本無題目，將為您隨機抽取 15 題進行衝刺挑戰！');
-                    currentQuestions = [...easyDb].sort(() => 0.5 - Math.random()).slice(0, 15);
-                }
+            } else if (mode === 'wrongReview') {
+                badge.innerText = '🎯 錯題本複習 (答對 3 次自動畢業)';
+                badge.className = 'text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-800';
             }
 
             currentIndex = 0;
@@ -294,13 +345,29 @@
         }
 
         function renderQuestion() {
-            if (currentIndex >= currentQuestions.length) {
-                alert('🎉 恭喜您已完成本組刷題！將返回主選單。');
-                backToMenu();
-                return;
+            let q = null;
+
+            if (currentMode === 'wrongReview') {
+                if (wrongBook.length === 0) {
+                    alert('🎉 太棒了！您已成功將錯題本中的題目全部消滅畢業！');
+                    backToMenu();
+                    return;
+                }
+                // 當目前一輪的錯題全部出完後，重新洗牌開啟下一輪
+                if (wrongQueue.length === 0) {
+                    alert('🔄 錯題本第一輪全部題目已複習完畢，將為您重新洗牌進行下一輪練習！');
+                    wrongQueue = [...wrongBook].sort(() => 0.5 - Math.random());
+                }
+                q = wrongQueue[0]; // 每次取得佇列第一位
+            } else {
+                if (currentIndex >= currentQuestions.length) {
+                    alert('🎉 恭喜您已完成本組刷題！將返回主選單。');
+                    backToMenu();
+                    return;
+                }
+                q = currentQuestions[currentIndex];
             }
 
-            const q = currentQuestions[currentIndex];
             document.getElementById('qSource').innerText = q.category || '';
             document.getElementById('qTitle').innerText = `${currentIndex + 1}. ${q.question}`;
             
@@ -309,7 +376,20 @@
             else if (q.type === 'single') typeBadge.innerText = '單選題';
             else typeBadge.innerText = '複選題';
 
+            // 錯題本累積進度標籤
+            const streakBadge = document.getElementById('wrongStreakBadge');
+            if (currentMode === 'wrongReview') {
+                const targetInBook = wrongBook.find(item => item.id === q.id);
+                const streak = targetInBook ? (targetInBook.correctStreak || 0) : 0;
+                streakBadge.innerText = `累積答對: ${streak} / 3 次`;
+                streakBadge.classList.remove('hidden');
+            } else {
+                streakBadge.classList.add('hidden');
+            }
+
             document.getElementById('explanationContainer').classList.add('hidden');
+            document.getElementById('wrongStreakNotice').classList.add('hidden');
+            
             const submitBtn = document.getElementById('submitMultiBtn');
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';
@@ -337,7 +417,7 @@
         }
 
         function submitSingleAnswer(selectedOpt) {
-            const q = currentQuestions[currentIndex];
+            let q = (currentMode === 'wrongReview') ? wrongQueue[0] : currentQuestions[currentIndex];
             totalAnswered++;
             const correctArr = Array.isArray(q.answer) ? q.answer : [q.answer];
             const isCorrect = correctArr.includes(selectedOpt);
@@ -361,7 +441,7 @@
         }
 
         function submitMultiAnswer() {
-            const q = currentQuestions[currentIndex];
+            let q = (currentMode === 'wrongReview') ? wrongQueue[0] : currentQuestions[currentIndex];
             const selectedArr = Object.keys(userAnswers);
             if (selectedArr.length === 0) {
                 alert('請至少選擇一個選項！');
@@ -378,21 +458,52 @@
 
         function showResult(isCorrect, correctArr, q) {
             const resultHeader = document.getElementById('resultHeader');
+            const wrongStreakNotice = document.getElementById('wrongStreakNotice');
+
             if (isCorrect) {
                 resultHeader.innerText = '🎉 回答正確！';
                 resultHeader.className = 'text-base font-bold mb-2 text-emerald-600';
                 
-                if (currentMode === 'easy') solvedEasy.add(q.id);
-                if (currentMode === 'sprint') {
+                if (currentMode === 'easy') {
+                    solvedEasy.add(q.id);
+                } else if (currentMode === 'sprint') {
                     solvedSprint.add(q.id);
-                    wrongBook = wrongBook.filter(item => item.id !== q.id);
+                } else if (currentMode === 'wrongReview') {
+                    // 錯題本邏輯：答對則計數器 +1
+                    let target = wrongBook.find(item => item.id === q.id);
+                    if (target) {
+                        target.correctStreak = (target.correctStreak || 0) + 1;
+                        if (target.correctStreak >= 3) {
+                            // 答對滿 3 次，自錯題本中永久刪除
+                            wrongBook = wrongBook.filter(item => item.id !== q.id);
+                            wrongStreakNotice.innerText = '✨ 恭喜！本題已連續答對 3 次，成功從錯題本中畢業刪除！';
+                            wrongStreakNotice.className = 'text-xs font-bold mb-2 text-emerald-600 bg-emerald-50 p-2 rounded';
+                            wrongStreakNotice.classList.remove('hidden');
+                        } else {
+                            wrongStreakNotice.innerText = `👍 答對 1 次！目前進度：${target.correctStreak} / 3 次 (滿 3 次即可畢業)`;
+                            wrongStreakNotice.className = 'text-xs font-bold mb-2 text-purple-700 bg-purple-50 p-2 rounded';
+                            wrongStreakNotice.classList.remove('hidden');
+                        }
+                    }
                 }
             } else {
-                resultHeader.innerText = '❌ 回答錯誤！已加入錯題本';
+                resultHeader.innerText = '❌ 回答錯誤！';
                 resultHeader.className = 'text-base font-bold mb-2 text-rose-600';
                 
-                if (!wrongBook.some(item => item.id === q.id)) {
-                    wrongBook.push(q);
+                // 答錯時，若不在錯題本中則新增進去
+                let target = wrongBook.find(item => item.id === q.id);
+                if (!target) {
+                    let newWrong = JSON.parse(JSON.stringify(q));
+                    newWrong.correctStreak = 0;
+                    wrongBook.push(newWrong);
+                } else {
+                    // 若已在錯題本，答錯則連對歸零重新計算
+                    target.correctStreak = 0;
+                    if (currentMode === 'wrongReview') {
+                        wrongStreakNotice.innerText = '⚠️ 答錯囉！連續答對次數已歸零重新計算。';
+                        wrongStreakNotice.className = 'text-xs font-bold mb-2 text-rose-600 bg-rose-50 p-2 rounded';
+                        wrongStreakNotice.classList.remove('hidden');
+                    }
                 }
             }
 
@@ -404,7 +515,12 @@
         }
 
         function nextQuestion() {
-            currentIndex++;
+            if (currentMode === 'wrongReview') {
+                // 將剛才練習過的題目從佇列頭部移除
+                wrongQueue.shift();
+            } else {
+                currentIndex++;
+            }
             renderQuestion();
         }
 
@@ -424,8 +540,13 @@
                 const card = document.createElement('div');
                 card.className = 'bg-white rounded-xl shadow p-5 border-l-4 border-rose-500';
                 const correctStr = Array.isArray(q.answer) ? q.answer.join('、') : q.answer;
+                const streak = q.correctStreak || 0;
+
                 card.innerHTML = `
-                    <div class="text-xs text-slate-400 mb-1">${q.category}</div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs text-slate-400">${q.category || ''}</span>
+                        <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-semibold">畢業進度: ${streak} / 3 次</span>
+                    </div>
                     <div class="font-bold text-slate-800 mb-2">${idx + 1}. ${q.question}</div>
                     <div class="text-sm text-emerald-600 font-semibold mb-2">正確答案：${correctStr}</div>
                     <div class="text-xs text-slate-600 bg-slate-50 p-3 rounded border leading-relaxed">
