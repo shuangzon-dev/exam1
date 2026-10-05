@@ -1003,200 +1003,200 @@
     "id": 76,
     "type": "true_false",
     "question": "生鮮果菜垂直市場之交易價格，皆由供需決定。",
-    "answer": true,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "正確",
     "explanation": "依據基本經濟學原理與農產品市場機制，生鮮果菜在垂直供應鏈（產地、批發、零售）中，價格主要由各階層之市場供給與需求力量交會決定。"
   },
   {
     "id": 77,
     "type": "true_false",
     "question": "青蔥在產地市場的供給是由消費需求誘發形成，是為引申供給。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "中間商對農產品的需求是由消費者的終端需求帶動，稱為「引申需求」（Derived Demand）；生產者的供應屬於原始供給，並無「引申供給」之說法。"
   },
   {
     "id": 78,
     "type": "true_false",
     "question": "西瓜的原始需求源自產地市場之需求。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "終端消費者在零售市場產生的需求稱為「原始需求」（Primary Demand）；批發與產地市場的需求則是由原始需求衍生而來的「引申需求」。"
   },
   {
     "id": 79,
     "type": "true_false",
     "question": "假設消費者對同屬葉菜類之小白菜與青江菜的需求具有替代性，則二者的交叉彈性應為正值。",
-    "answer": true,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "正確",
     "explanation": "交叉價格彈性衡量一商品價格變動對另一商品需求量的影響。兩商品為替代品時，一商品價漲致另一商品需求增加，交叉彈性為正值（Exy > 0）。"
   },
   {
     "id": 80,
     "type": "true_false",
     "question": "需求的交叉彈性發生在同一條需求曲線上。",
-    "answer": false,
-    "importance": 3,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "同一條需求曲線僅表示該商品自身價格變動引發的需求量變動。交叉彈性涉及相關商品價格變動，會導致該商品的需求曲線發生整條移動（Shift）。"
   },
   {
     "id": 81,
     "type": "true_false",
     "question": "農產品共同運銷只能由農民團體辦理。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法》第 7 條第 2 項規定，農民團體未辦理共同運銷之農產品或地區，得由農民或農業產銷班自行辦理，政府應積極輔導之。"
   },
   {
     "id": 82,
     "type": "true_false",
     "question": "農產品批發市場為公用事業，應賺取高額利潤。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法》第 12 條及第 13 條第 2 項規定，農產品批發市場為公用事業，且其經營主體均「不得以營利為目的」。"
   },
   {
     "id": 83,
     "type": "true_false",
     "question": "通常預報颱風即將來襲會造成零售市場蔬果價格上漲，主要是因為供給減少。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "颱風襲台前夕產地尚未受災，零售價格上漲主要是因為消費者出自預期心理搶購致「需求驟增」，而非實質供給減少。"
   },
   {
     "id": 84,
     "type": "true_false",
     "question": "農民以宅配方式銷售自家生產的農產品，屬於一階運銷通路型態。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "農民直接透過宅配或電商賣給消費者，中間無任何中間商介入，屬於「零階運銷通路（直銷）」，非一階通路。"
   },
   {
     "id": 85,
     "type": "true_false",
     "question": "農產品在零售階段的成本通常低於批發階段的成本。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "零售階段必須面臨少量零碎交易、店面租金、保鮮損耗及人力服務，其單位運銷成本與利潤要求顯著高於大宗集中的批發階段。"
   },
   {
     "id": 86,
     "type": "true_false",
     "question": "蔬菜價格循環變動型態相當顯著。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "蔬菜生產週期短，價格變化主要呈以一年為週期的「季節變動」或隨機變動；呈現顯著「循環變動」者通常為生產週期較長之畜產品（如毛豬）。"
   },
   {
     "id": 87,
     "type": "true_false",
     "question": "毛豬是我國最早辦理共同運銷的農產品品項。",
-    "answer": true,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "正確",
     "explanation": "我國農會體系於民國 60 年代最先推動農產品共同運銷，其中「毛豬」即為臺灣最早開始辦理共同運銷的品項。"
   },
   {
     "id": 88,
     "type": "true_false",
     "question": "依據《農業發展條例》，補貼是穩定農產品價格的重要手段。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農業發展條例》第 28 條，政府調節與穩定重要農產品價格，主要採用「平準基金」、保證價格收購或平準措施，而非將補貼作為主要法定手段。"
   },
   {
     "id": 89,
     "type": "true_false",
     "question": "依據《農產品市場交易法》規定，農民團體辦理共同運銷，出售其農產品時，可以免繳管理費。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法》第 11 條及第 24 條，辦理共同運銷免徵的是「印花稅及營業稅」；批發市場管理費係維持市場運作之必要費用，不得免繳。"
   },
   {
     "id": 90,
     "type": "true_false",
     "question": "依據《農產品市場交易法實施細則》，批發市場管理費應按成交總量收費。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法施行細則》第 23 條第 2 項，批發市場管理費應按貨品「成交總值（成交金額）」計算，由供需雙方平均負擔。"
   },
   {
     "id": 91,
     "type": "true_false",
     "question": "吉園圃標章屬於「3章 1Q」。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "吉園圃標章已於民國 108 年正式停用；現行「3章 1Q」包含：有機農產品標章、TAP 產銷履歷標章、CAS 臺灣優良農產品標章，以及生產追溯 QR Code。"
   },
   {
     "id": 92,
     "type": "true_false",
     "question": "根據恩格爾法則，家庭糧食費用占所得之比率隨所得提高而提高。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "恩格爾法則（Engel's Law）指出，隨家庭所得提高，飲食與糧食費用占家庭總所得（或總支出）的比率會隨之「下降」。"
   },
   {
     "id": 93,
     "type": "true_false",
     "question": "運銷商與農民的第一次交易通常在消費地批發市場。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "販運商（運銷商）與農民的第一次交易，通常發生在產地市場、田間或產地集貨場，而非消費地批發市場。"
   },
   {
     "id": 94,
     "type": "true_false",
     "question": "不耐儲藏而易腐的農產品比較難以控制價格的變動；相對的，較耐儲藏的農產品，則較容易控制價格的變動。",
-    "answer": true,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "正確",
     "explanation": "易腐農產品採收後必須列車銷售，供給彈性極低；耐儲藏農產品可透過倉儲與冷鏈調節供貨時間，創造「時間效用」以平抑價格。"
   },
   {
     "id": 95,
     "type": "true_false",
     "question": "為了擴大產品的市佔率，可以採用價格先高後低的「滲透定價法」策略。",
-    "answer": false,
-    "importance": 3,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "價格「先高後低」的策略稱為「吸脂／撇脂定價法」（Skimming Pricing）；價格「先低後高」以低價搶占市占率的策略，才稱為「滲透定價法」。"
   },
   {
     "id": 96,
     "type": "true_false",
     "question": "農產品批發市場的交易方式可以先期約定進行。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法》第 25 條及施行細則第 21 條，批發市場法定交易方式為拍賣、議價、標價或投標，且均應公開為之。"
   },
   {
     "id": 97,
     "type": "true_false",
     "question": "農產品批發市場的供應承銷人，可以在同一市場兼營供應承銷業務。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法》第 20 條規定：「農產品批發市場之供應人或承銷人，在同一市場不得兼營承銷及供應業務。」以避免利益衝突與操縱價格。"
   },
   {
     "id": 98,
     "type": "true_false",
     "question": "農民或農產品販運商可以用自然人身份，作為農產品批發市場經營主體。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《農產品市場交易法》第 13 條第 1 項，批發市場經營主體以農民團體、公私合資法人等為限，且經營主體不得以營利為目的，故自然人不得作為經營主體。"
   },
   {
     "id": 99,
     "type": "true_false",
     "question": "我國現行花卉批發市場的拍賣方式，是由起價往上加價方式進行。",
-    "answer": false,
-    "importance": 4,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "我國主要花卉批發市場採用從高價往低價遞減下降之「荷蘭式拍賣（降價競價拍賣）」，第一個按鈕應價者即宣告成交。"
   },
   {
     "id": 100,
     "type": "true_false",
     "question": "根據農業發展條例，農民小趙出售本身所生產農產品必須繳交營業稅及消費稅。",
-    "answer": false,
-    "importance": 5,
+    "options": ["正確","錯誤"],
+    "answer": "錯誤",
     "explanation": "依據《加值型及非加值型營業稅法》第 8 條及《農產品市場交易法》第 11 條規定，農民銷售其採獲或產製之原始農產品免徵營業稅及印花稅。"
   }
 ]
