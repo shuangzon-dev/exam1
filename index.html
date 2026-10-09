@@ -46,10 +46,10 @@
                             <span id="easyTotalBadge" class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">載入中...</span>
                         </div>
                         <p class="text-xs text-slate-600 mb-4">
-                            隨機抽取基礎題庫題目，適合平時全方位複習與熟悉題型。
+                            選擇特定題型（是非題、單選題、複選題）進行隨機出題練習。
                         </p>
                     </div>
-                    <button onclick="startQuiz('easy')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-sm transition">進入輕鬆刷題</button>
+                    <button onclick="openTypeSelectModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-sm transition">進入輕鬆刷題</button>
                 </div>
 
                 <!-- 考前衝刺卡片 -->
@@ -180,6 +180,33 @@
 
     </main>
 
+    <!-- 題型選擇彈窗 (輕鬆刷題專用) -->
+    <div id="typeModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 text-center transform transition-all">
+            <h3 class="text-xl font-bold text-slate-800 mb-2">🌱 選擇練習題型</h3>
+            <p class="text-sm text-slate-500 mb-6">請選擇您要在輕鬆刷題中練習的題目類型：</p>
+            
+            <div class="space-y-3">
+                <button onclick="selectEasyType('tf')" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold py-3 px-4 rounded-xl border border-blue-200 transition flex items-center justify-between">
+                    <span>⭕❌ 是非題</span>
+                    <span id="tfCountBadge" class="text-xs bg-blue-200 px-2 py-0.5 rounded-full">0 題</span>
+                </button>
+                <button onclick="selectEasyType('single')" class="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-3 px-4 rounded-xl border border-emerald-200 transition flex items-center justify-between">
+                    <span>🔘 單選題</span>
+                    <span id="singleCountBadge" class="text-xs bg-emerald-200 px-2 py-0.5 rounded-full">0 題</span>
+                </button>
+                <button onclick="selectEasyType('multiple')" class="w-full bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold py-3 px-4 rounded-xl border border-purple-200 transition flex items-center justify-between">
+                    <span>☑️ 複選題</span>
+                    <span id="multiCountBadge" class="text-xs bg-purple-200 px-2 py-0.5 rounded-full">0 題</span>
+                </button>
+            </div>
+
+            <button onclick="closeTypeModal()" class="mt-6 w-full text-slate-400 hover:text-slate-600 text-sm font-semibold py-2">
+                取消返回
+            </button>
+        </div>
+    </div>
+
     <!-- 系統邏輯腳本 -->
     <script>
         // 全域變數
@@ -187,6 +214,7 @@
         let sprintDb = [];        // 考前衝刺資料庫 (sprint_questions.json)
         let currentUser = "";
         let currentMode = ""; 
+        let selectedEasyType = ""; // 紀錄輕鬆刷題選擇的題型 ('tf', 'single', 'multiple')
         let currentQuestions = [];
         let currentIndex = 0;
         let userAnswers = {};
@@ -301,15 +329,47 @@
             updateStatsUI();
         }
 
+        // 開啟輕鬆刷題的題型選擇視窗
+        function openTypeSelectModal() {
+            if (easyDb.length === 0) {
+                alert('輕鬆刷題庫為空，請確認 questions.json 檔！');
+                return;
+            }
+
+            // 計算各題型數量
+            const tfCount = easyDb.filter(q => q.type === 'tf').length;
+            const singleCount = easyDb.filter(q => q.type === 'single').length;
+            const multiCount = easyDb.filter(q => q.type === 'multiple').length;
+
+            document.getElementById('tfCountBadge').innerText = `${tfCount} 題`;
+            document.getElementById('singleCountBadge').innerText = `${singleCount} 題`;
+            document.getElementById('multiCountBadge').innerText = `${multiCount} 題`;
+
+            document.getElementById('typeModal').classList.remove('hidden');
+        }
+
+        function closeTypeModal() {
+            document.getElementById('typeModal').classList.add('hidden');
+        }
+
+        // 當使用者選取特定題型後啟動刷題
+        function selectEasyType(type) {
+            selectedEasyType = type;
+            closeTypeModal();
+            startQuiz('easy');
+        }
+
         function startQuiz(mode) {
             currentMode = mode;
 
             if (mode === 'easy') {
-                if (easyDb.length === 0) {
-                    alert('輕鬆刷題庫為空，請確認 questions.json 檔！');
+                // 篩選出選定的題型，並進行隨機排序
+                const filteredQuestions = easyDb.filter(q => q.type === selectedEasyType);
+                if (filteredQuestions.length === 0) {
+                    alert('此題型目前尚無題目！');
                     return;
                 }
-                currentQuestions = [...easyDb].sort(() => 0.5 - Math.random());
+                currentQuestions = [...filteredQuestions].sort(() => 0.5 - Math.random());
             } else if (mode === 'sprint') {
                 if (sprintDb.length === 0) {
                     alert('考前衝刺題庫為空，請確認 sprint_questions.json 檔！');
@@ -330,7 +390,11 @@
 
             const badge = document.getElementById('currentModeBadge');
             if (mode === 'easy') {
-                badge.innerText = '🌱 輕鬆刷題模式 (全題庫隨機)';
+                let typeName = '是非題';
+                if (selectedEasyType === 'single') typeName = '單選題';
+                else if (selectedEasyType === 'multiple') typeName = '複選題';
+
+                badge.innerText = `🌱 輕鬆刷題 (${typeName}隨機)`;
                 badge.className = 'text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800';
             } else if (mode === 'sprint') {
                 badge.innerText = '🔥 考前衝刺模式 (獨立衝刺題庫)';
