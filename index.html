@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>農產運銷刷題神器 - 雲端雙題庫版</title>
+    <title>全國農會統一考試刷題神器</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,8 +13,8 @@
     <!-- 頂部導覽列 -->
     <header class="bg-emerald-700 text-white shadow-md">
         <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold flex items-center">
-                🌾 農產運銷刷題神器
+            <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2 cursor-pointer" onclick="backToSubjectSelect()">
+                🌾 全國農會統一考試刷題神器
             </h1>
             <div id="userInfo" class="hidden text-sm md:text-base flex items-center gap-3">
                 <span id="userNameDisplay" class="font-semibold bg-emerald-800 px-3 py-1 rounded-full"></span>
@@ -28,14 +28,63 @@
 
         <!-- 登入區塊 -->
         <section id="loginSection" class="bg-white rounded-xl shadow-md p-6 max-w-md mx-auto my-12 text-center">
-            <h2 class="text-2xl font-bold text-emerald-800 mb-2">歡迎使用農產運銷刷題系統</h2>
-            <p class="text-slate-600 mb-6 text-sm">輸入您的名字即可建立專屬答題紀錄及錯題本</p>
+            <h2 class="text-2xl font-bold text-emerald-800 mb-2">歡迎使用全國農會統一考試刷題系統</h2>
+            <p class="text-slate-600 mb-6 text-sm">輸入您的名字即可建立專屬答題紀錄及雙科目錯題本</p>
             <input type="text" id="userNameInput" placeholder="請輸入您的姓名或暱稱" class="w-full border border-slate-300 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <button onclick="login()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow transition">開始刷題</button>
         </section>
 
-        <!-- 主選單 -->
+        <!-- 科目選擇區塊 -->
+        <section id="subjectSection" class="hidden my-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-slate-800">請選擇考試科目</h2>
+                <p class="text-sm text-slate-500 mt-1">各科目的題庫、錯題本與答題進度皆為獨立運作</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <!-- 農會法卡片 -->
+                <div onclick="selectSubject('farmer_law')" class="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border-2 border-transparent hover:border-emerald-500 cursor-pointer transition flex flex-col justify-between group">
+                    <div>
+                        <div class="text-4xl mb-3">📜</div>
+                        <h3 class="text-xl font-bold text-emerald-800 group-hover:text-emerald-600 transition">農會法</h3>
+                        <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                            收錄農會法及相關施行細則，包含是非、單選與複選題型，高頻考點精準複習。
+                        </p>
+                    </div>
+                    <div class="mt-6 text-right font-semibold text-sm text-emerald-600 group-hover:translate-x-1 transition flex items-center justify-end">
+                        進入農會法題庫 →
+                    </div>
+                </div>
+
+                <!-- 農產運銷卡片 -->
+                <div onclick="selectSubject('marketing')" class="bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border-2 border-transparent hover:border-blue-500 cursor-pointer transition flex flex-col justify-between group">
+                    <div>
+                        <div class="text-4xl mb-3">🥬</div>
+                        <h3 class="text-xl font-bold text-blue-800 group-hover:text-blue-600 transition">農產運銷</h3>
+                        <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                            包含農產運銷學、市場機制、供應鏈與運銷法規等基礎與衝刺題庫。
+                        </p>
+                    </div>
+                    <div class="mt-6 text-right font-semibold text-sm text-blue-600 group-hover:translate-x-1 transition flex items-center justify-end">
+                        進入農產運銷題庫 →
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主選單 (分模式) -->
         <section id="menuSection" class="hidden">
+            <!-- 麵包屑導覽 / 切換科目 -->
+            <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-semibold">當前科目</span>
+                    <h2 id="currentSubjectTitle" class="text-lg font-bold text-emerald-800"></h2>
+                </div>
+                <button onclick="backToSubjectSelect()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-semibold transition">
+                    🔄 切換科目
+                </button>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 
                 <!-- 輕鬆刷題卡片 -->
@@ -98,7 +147,7 @@
 
             <!-- 使用者統計資訊 -->
             <div class="bg-white rounded-xl shadow p-4 mb-6">
-                <h4 class="text-sm font-bold text-slate-700 mb-2 border-b pb-2">📊 個人學習統計</h4>
+                <h4 class="text-sm font-bold text-slate-700 mb-2 border-b pb-2">📊 科目學習統計</h4>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div class="bg-slate-50 p-3 rounded-lg">
                         <div class="text-xs text-slate-500">輕鬆模式掌握度</div>
@@ -209,54 +258,41 @@
 
     <!-- 系統邏輯腳本 -->
     <script>
+        // 設定檔：對應各科目的 JSON 檔案
+        const subjectConfigs = {
+            farmer_law: {
+                title: "農會法",
+                easyFile: "farmer_law_questions.json",
+                sprintFile: "farmer_law_sprint_questions.json"
+            },
+            marketing: {
+                title: "農產運銷",
+                easyFile: "questions.json",
+                sprintFile: "sprint_questions.json"
+            }
+        };
+
         // 全域變數
-        let easyDb = [];          // 輕鬆刷題資料庫 (questions.json)
-        let sprintDb = [];        // 考前衝刺資料庫 (sprint_questions.json)
+        let currentSubject = "";  // 'farmer_law' 或 'marketing'
+        let easyDb = [];          // 當前科目的輕鬆刷題資料庫
+        let sprintDb = [];        // 當前科目的考前衝刺資料庫
         let currentUser = "";
         let currentMode = ""; 
-        let selectedEasyType = ""; // 紀錄輕鬆刷題選擇的題型 ('tf', 'single', 'multiple')
+        let selectedEasyType = ""; // 輕鬆刷題選擇題型 ('tf', 'single', 'multiple')
         let currentQuestions = [];
         let currentIndex = 0;
         let userAnswers = {};
         
-        // 錯題本結構：[{ ...questionData, correctStreak: 0 }]
-        let wrongBook = []; 
-        let wrongQueue = [];      // 錯題複習輪播佇列 (保證每輪不重複出題)
+        let wrongBook = [];       // 當前科目的錯題本
+        let wrongQueue = [];      // 當前科目的錯題複習佇列
 
         let solvedEasy = new Set();
         let solvedSprint = new Set();
         let totalAnswered = 0;
 
-        window.onload = async function() {
-            await initDatabases();
+        window.onload = function() {
             loadUserData();
         };
-
-        // 讀取輕鬆刷題與考前衝刺兩組獨立 JSON 檔
-        async function initDatabases() {
-            const timestamp = new Date().getTime();
-            try {
-                // 1. 載入輕鬆刷題庫
-                const easyRes = await fetch(`questions.json?v=${timestamp}`);
-                if (easyRes.ok) {
-                    easyDb = await easyRes.json();
-                    document.getElementById('easyTotalBadge').innerText = `共 ${easyDb.length} 題`;
-                }
-
-                // 2. 載入考前衝刺題庫
-                const sprintRes = await fetch(`sprint_questions.json?v=${timestamp}`);
-                if (sprintRes.ok) {
-                    sprintDb = await sprintRes.json();
-                    document.getElementById('sprintTotalBadge').innerText = `共 ${sprintDb.length} 題`;
-                } else {
-                    // 若尚未提供衝刺題庫，預設先降級降為 0 題
-                    sprintDb = [];
-                    document.getElementById('sprintTotalBadge').innerText = `共 0 題`;
-                }
-            } catch (error) {
-                console.error("載入題庫失敗：", error);
-            }
-        }
 
         function loadUserData() {
             const savedUser = localStorage.getItem('quiz_user');
@@ -265,34 +301,8 @@
                 document.getElementById('userNameDisplay').innerText = currentUser;
                 document.getElementById('loginSection').classList.add('hidden');
                 document.getElementById('userInfo').classList.remove('hidden');
-                document.getElementById('menuSection').classList.remove('hidden');
-
-                // 載入錯題資料並補齊 correctStreak 欄位
-                const wrongData = localStorage.getItem(`wrong_${currentUser}`);
-                wrongBook = wrongData ? JSON.parse(wrongData) : [];
-                wrongBook.forEach(item => {
-                    if (item.correctStreak === undefined) item.correctStreak = 0;
-                });
-
-                const statsData = localStorage.getItem(`stats_${currentUser}`);
-                if (statsData) {
-                    const stats = JSON.parse(statsData);
-                    solvedEasy = new Set(stats.solvedEasy || []);
-                    solvedSprint = new Set(stats.solvedSprint || []);
-                    totalAnswered = stats.totalAnswered || 0;
-                }
-                updateStatsUI();
+                document.getElementById('subjectSection').classList.remove('hidden');
             }
-        }
-
-        function saveUserData() {
-            if (!currentUser) return;
-            localStorage.setItem(`wrong_${currentUser}`, JSON.stringify(wrongBook));
-            localStorage.setItem(`stats_${currentUser}`, JSON.stringify({
-                solvedEasy: Array.from(solvedEasy),
-                solvedSprint: Array.from(solvedSprint),
-                totalAnswered: totalAnswered
-            }));
         }
 
         function login() {
@@ -309,6 +319,85 @@
         function logout() {
             localStorage.removeItem('quiz_user');
             location.reload();
+        }
+
+        // 選擇科目並初始化該科目的資料與錯題本
+        async function selectSubject(subjKey) {
+            currentSubject = subjKey;
+            document.getElementById('currentSubjectTitle').innerText = subjectConfigs[subjKey].title;
+            
+            await initSubjectDatabases(subjKey);
+            loadSubjectUserData(subjKey);
+
+            document.getElementById('subjectSection').classList.add('hidden');
+            document.getElementById('menuSection').classList.remove('hidden');
+        }
+
+        function backToSubjectSelect() {
+            document.getElementById('quizSection').classList.add('hidden');
+            document.getElementById('wrongBookSection').classList.add('hidden');
+            document.getElementById('menuSection').classList.add('hidden');
+            document.getElementById('subjectSection').classList.remove('hidden');
+        }
+
+        // 讀取特定科目的獨立 JSON 題庫
+        async function initSubjectDatabases(subjKey) {
+            const config = subjectConfigs[subjKey];
+            const timestamp = new Date().getTime();
+
+            easyDb = [];
+            sprintDb = [];
+
+            try {
+                // 1. 載入輕鬆刷題庫
+                const easyRes = await fetch(`${config.easyFile}?v=${timestamp}`);
+                if (easyRes.ok) {
+                    easyDb = await easyRes.json();
+                }
+
+                // 2. 載入考前衝刺題庫
+                const sprintRes = await fetch(`${config.sprintFile}?v=${timestamp}`);
+                if (sprintRes.ok) {
+                    sprintDb = await sprintRes.json();
+                }
+            } catch (error) {
+                console.error("載入題庫失敗：", error);
+            }
+        }
+
+        // 讀取特定科目的使用者學習資料 (對應 currentUser + subjectKey)
+        function loadSubjectUserData(subjKey) {
+            // 獨立的錯題本 Key
+            const wrongData = localStorage.getItem(`wrong_${currentUser}_${subjKey}`);
+            wrongBook = wrongData ? JSON.parse(wrongData) : [];
+            wrongBook.forEach(item => {
+                if (item.correctStreak === undefined) item.correctStreak = 0;
+            });
+
+            // 獨立的統計 Key
+            const statsData = localStorage.getItem(`stats_${currentUser}_${subjKey}`);
+            if (statsData) {
+                const stats = JSON.parse(statsData);
+                solvedEasy = new Set(stats.solvedEasy || []);
+                solvedSprint = new Set(stats.solvedSprint || []);
+                totalAnswered = stats.totalAnswered || 0;
+            } else {
+                solvedEasy = new Set();
+                solvedSprint = new Set();
+                totalAnswered = 0;
+            }
+
+            updateStatsUI();
+        }
+
+        function saveSubjectUserData() {
+            if (!currentUser || !currentSubject) return;
+            localStorage.setItem(`wrong_${currentUser}_${currentSubject}`, JSON.stringify(wrongBook));
+            localStorage.setItem(`stats_${currentUser}_${currentSubject}`, JSON.stringify({
+                solvedEasy: Array.from(solvedEasy),
+                solvedSprint: Array.from(solvedSprint),
+                totalAnswered: totalAnswered
+            }));
         }
 
         function updateStatsUI() {
@@ -332,11 +421,10 @@
         // 開啟輕鬆刷題的題型選擇視窗
         function openTypeSelectModal() {
             if (easyDb.length === 0) {
-                alert('輕鬆刷題庫為空，請確認 questions.json 檔！');
+                alert(`目前【${subjectConfigs[currentSubject].title}】的輕鬆刷題庫為空！`);
                 return;
             }
 
-            // 計算各題型數量
             const tfCount = easyDb.filter(q => q.type === 'tf').length;
             const singleCount = easyDb.filter(q => q.type === 'single').length;
             const multiCount = easyDb.filter(q => q.type === 'multiple').length;
@@ -352,7 +440,6 @@
             document.getElementById('typeModal').classList.add('hidden');
         }
 
-        // 當使用者選取特定題型後啟動刷題
         function selectEasyType(type) {
             selectedEasyType = type;
             closeTypeModal();
@@ -363,7 +450,6 @@
             currentMode = mode;
 
             if (mode === 'easy') {
-                // 篩選出選定的題型，並進行隨機排序
                 const filteredQuestions = easyDb.filter(q => q.type === selectedEasyType);
                 if (filteredQuestions.length === 0) {
                     alert('此題型目前尚無題目！');
@@ -372,7 +458,7 @@
                 currentQuestions = [...filteredQuestions].sort(() => 0.5 - Math.random());
             } else if (mode === 'sprint') {
                 if (sprintDb.length === 0) {
-                    alert('考前衝刺題庫為空，請確認 sprint_questions.json 檔！');
+                    alert(`目前【${subjectConfigs[currentSubject].title}】的衝刺題庫為空！`);
                     return;
                 }
                 currentQuestions = [...sprintDb].sort(() => 0.5 - Math.random());
@@ -381,7 +467,6 @@
                     alert('🎉 您的錯題本目前是空的，沒有需要複習的錯題！');
                     return;
                 }
-                // 初始化錯題本佇列（洗牌後依序練習，保證本輪不重複）
                 wrongQueue = [...wrongBook].sort(() => 0.5 - Math.random());
             }
 
@@ -417,12 +502,11 @@
                     backToMenu();
                     return;
                 }
-                // 當目前一輪的錯題全部出完後，重新洗牌開啟下一輪
                 if (wrongQueue.length === 0) {
                     alert('🔄 錯題本第一輪全部題目已複習完畢，將為您重新洗牌進行下一輪練習！');
                     wrongQueue = [...wrongBook].sort(() => 0.5 - Math.random());
                 }
-                q = wrongQueue[0]; // 每次取得佇列第一位
+                q = wrongQueue[0];
             } else {
                 if (currentIndex >= currentQuestions.length) {
                     alert('🎉 恭喜您已完成本組刷題！將返回主選單。');
@@ -440,7 +524,6 @@
             else if (q.type === 'single') typeBadge.innerText = '單選題';
             else typeBadge.innerText = '複選題';
 
-            // 錯題本累積進度標籤
             const streakBadge = document.getElementById('wrongStreakBadge');
             if (currentMode === 'wrongReview') {
                 const targetInBook = wrongBook.find(item => item.id === q.id);
@@ -533,12 +616,10 @@
                 } else if (currentMode === 'sprint') {
                     solvedSprint.add(q.id);
                 } else if (currentMode === 'wrongReview') {
-                    // 錯題本邏輯：答對則計數器 +1
                     let target = wrongBook.find(item => item.id === q.id);
                     if (target) {
                         target.correctStreak = (target.correctStreak || 0) + 1;
                         if (target.correctStreak >= 3) {
-                            // 答對滿 3 次，自錯題本中永久刪除
                             wrongBook = wrongBook.filter(item => item.id !== q.id);
                             wrongStreakNotice.innerText = '✨ 恭喜！本題已連續答對 3 次，成功從錯題本中畢業刪除！';
                             wrongStreakNotice.className = 'text-xs font-bold mb-2 text-emerald-600 bg-emerald-50 p-2 rounded';
@@ -554,14 +635,12 @@
                 resultHeader.innerText = '❌ 回答錯誤！';
                 resultHeader.className = 'text-base font-bold mb-2 text-rose-600';
                 
-                // 答錯時，若不在錯題本中則新增進去
                 let target = wrongBook.find(item => item.id === q.id);
                 if (!target) {
                     let newWrong = JSON.parse(JSON.stringify(q));
                     newWrong.correctStreak = 0;
                     wrongBook.push(newWrong);
                 } else {
-                    // 若已在錯題本，答錯則連對歸零重新計算
                     target.correctStreak = 0;
                     if (currentMode === 'wrongReview') {
                         wrongStreakNotice.innerText = '⚠️ 答錯囉！連續答對次數已歸零重新計算。';
@@ -571,7 +650,7 @@
                 }
             }
 
-            saveUserData();
+            saveSubjectUserData();
 
             document.getElementById('correctAnswerText').innerText = correctArr.join('、');
             document.getElementById('explanationText').innerText = q.explanation || '無詳細解析。';
@@ -580,7 +659,6 @@
 
         function nextQuestion() {
             if (currentMode === 'wrongReview') {
-                // 將剛才練習過的題目從佇列頭部移除
                 wrongQueue.shift();
             } else {
                 currentIndex++;
@@ -596,7 +674,7 @@
             list.innerHTML = '';
 
             if (wrongBook.length === 0) {
-                list.innerHTML = '<div class="text-center text-slate-500 py-12 bg-white rounded-xl shadow">🎉 太厲害了！目前完全沒有累積錯題！</div>';
+                list.innerHTML = '<div class="text-center text-slate-500 py-12 bg-white rounded-xl shadow">🎉 太厲害了！目前本科目完全沒有累積錯題！</div>';
                 return;
             }
 
