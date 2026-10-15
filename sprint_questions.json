@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "type": "single_choice",
+    "type": "single",
     "question": "已知甲乙兩農產品為替代品且產季相同，以下哪一種情形會使甲產品的市場交易價格下降？",
     "options": [
       "(A) 甲產品供給增加",
@@ -14,7 +14,7 @@
   },
   {
     "id": 2,
-    "type": "single_choice",
+    "type": "single",
     "question": "以下有關生鮮農產品供給的敘述，何者正確？",
     "options": [
       "(A) 市場供給是由政府控制",
@@ -27,7 +27,7 @@
   },
   {
     "id": 3,
-    "type": "single_choice",
+    "type": "single",
     "question": "以下有關農產品供給彈性的敘述，何者正確？",
     "options": [
       "(A) 雙曲線型的供給曲線之供給彈性恆為 1",
@@ -40,7 +40,7 @@
   },
   {
     "id": 4,
-    "type": "single_choice",
+    "type": "single",
     "question": "以下哪一項為影響農產品供給量的最主要因素？",
     "options": [
       "(A) 國民所得增加",
@@ -53,7 +53,7 @@
   },
   {
     "id": 5,
-    "type": "single_choice",
+    "type": "single",
     "question": "當鳳梨零售市場價格下跌時，根據需求法則，會發生下列何者情況？",
     "options": [
       "(A) 消費者購買數量會增加",
@@ -66,7 +66,7 @@
   },
   {
     "id": 6,
-    "type": "single_choice",
+    "type": "single",
     "question": "當產品銷售狀況不佳時，生產者採用降價求售，在下列哪一種情形將有效提高產品銷售額？",
     "options": [
       "(A) 供給彈性趨近於零",
@@ -79,7 +79,7 @@
   },
   {
     "id": 7,
-    "type": "single_choice",
+    "type": "single",
     "question": "蛛網理論常用於解釋農產品產量與價格間的何種關係？",
     "options": [
       "(A) 短期波動",
@@ -92,7 +92,7 @@
   },
   {
     "id": 8,
-    "type": "single_choice",
+    "type": "single",
     "question": "假設某生鮮農產品市場為完全競爭市場，在達到市場均衡時，下列何者為真？",
     "options": [
       "(A) 消費者剩餘恆為零",
@@ -105,7 +105,7 @@
   },
   {
     "id": 9,
-    "type": "single_choice",
+    "type": "single",
     "question": "產銷履歷農產品符合以下哪一項特徵？",
     "options": [
       "(A) 依照農產品市場交易法認證",
@@ -118,7 +118,7 @@
   },
   {
     "id": 10,
-    "type": "single_choice",
+    "type": "single",
     "question": "以下哪一項可衡量農產品運銷之技術效率？",
     "options": [
       "(A) 運銷價差大小",
@@ -131,7 +131,7 @@
   },
   {
     "id": 11,
-    "type": "single_choice",
+    "type": "single",
     "question": "以下哪一種產品訂價法是屬於心理訂價法？",
     "options": [
       "(A) 跟隨價格領導者",
@@ -144,7 +144,7 @@
   },
   {
     "id": 12,
-    "type": "single_choice",
+    "type": "single",
     "question": "新興農產品推出，因價格高供應不穩定，消費者基於嘗新購買但回購不多，該產品在產品週期的哪一階段？",
     "options": [
       "(A) 衰退期",
@@ -157,7 +157,7 @@
   },
   {
     "id": 13,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產品運銷成本因具有在短期間變動甚少的特性，故被稱為？",
     "options": [
       "(A) 揮發性成本",
@@ -170,7 +170,7 @@
   },
   {
     "id": 14,
-    "type": "single_choice",
+    "type": "single",
     "question": "根據《農產品市場交易法》，批發市場之供應人應備置交易資料供主管機關查驗，何者不需備置？",
     "options": [
       "(A) 農企業機構",
@@ -183,7 +183,7 @@
   },
   {
     "id": 15,
-    "type": "single_choice",
+    "type": "single",
     "question": "廣告及產品標示中使用有機農產品標章需具備依照下列哪一項法律驗證合格？",
     "options": [
       "(A) 有機農業促進法",
@@ -196,7 +196,7 @@
   },
   {
     "id": 16,
-    "type": "single_choice",
+    "type": "single",
     "question": "依據《農產品市場交易法實施細則》，漁產批發市場管理費收費標準不得超過？",
     "options": [
       "(A) 千分之十",
@@ -209,7 +209,7 @@
   },
   {
     "id": 17,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產運銷實體作業的第一步驟為？",
     "options": [
       "(A) 採收",
@@ -222,7 +222,7 @@
   },
   {
     "id": 18,
-    "type": "single_choice",
+    "type": "single",
     "question": "以下關於批發市場的描述，何者不正確？",
     "options": [
       "(A) 公用事業",
@@ -235,7 +235,7 @@
   },
   {
     "id": 19,
-    "type": "single_choice",
+    "type": "single",
     "question": "每年豬肉價格在端午節前會上升，此種價格波動可視為？",
     "options": [
       "(A) 季節變動",
@@ -248,7 +248,7 @@
   },
   {
     "id": 20,
-    "type": "single_choice",
+    "type": "single",
     "question": "便利商店以單根香蕉定價的方式，屬於？",
     "options": [
       "(A) 成本加成定價",
@@ -261,7 +261,7 @@
   },
   {
     "id": 21,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產品常有「穀賤傷農」的情況，其原因可能是？",
     "options": [
       "(A) 生產者太多",
@@ -274,7 +274,7 @@
   },
   {
     "id": 22,
-    "type": "single_choice",
+    "type": "single",
     "question": "有關鮮乳標章，下列何者正確？",
     "options": [
       "(A) 鼓勵使用奶粉沖泡奶為原料",
@@ -287,7 +287,7 @@
   },
   {
     "id": 23,
-    "type": "single_choice",
+    "type": "single",
     "question": "肉品加工商將自美國進口的豬肉，標示為加拿大，其行為屬於？",
     "options": [
       "(A) 應標示而未標示",
@@ -300,7 +300,7 @@
   },
   {
     "id": 24,
-    "type": "single_choice",
+    "type": "single",
     "question": "《農業發展條例》中，重要農產品價格是採用下列何種方法來因應波動並穩定價格？",
     "options": [
       "(A) 補貼",
@@ -313,7 +313,7 @@
   },
   {
     "id": 25,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產品分級包裝工作的重點宜在下列那個階段實施？",
     "options": [
       "(A) 生產地",
@@ -326,7 +326,7 @@
   },
   {
     "id": 26,
-    "type": "single_choice",
+    "type": "single",
     "question": "普通運銷商與職能運銷商兩者的差別，主要在於？",
     "options": [
       "(A) 所在地經濟條件",
@@ -339,7 +339,7 @@
   },
   {
     "id": 27,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產運銷上稱適時、適地、適量的運銷是為？",
     "options": [
       "(A) 秩序運銷",
@@ -352,7 +352,7 @@
   },
   {
     "id": 28,
-    "type": "single_choice",
+    "type": "single",
     "question": "某一農產品具備季節價格差異較小的特性時，則其市場寬度將呈現？",
     "options": [
       "(A) 相對較小",
@@ -365,7 +365,7 @@
   },
   {
     "id": 29,
-    "type": "single_choice",
+    "type": "single",
     "question": "農民團體辦理農產品共同運銷之必須費用，其代辦費收取對象為？",
     "options": [
       "(A) 貨主",
@@ -378,7 +378,7 @@
   },
   {
     "id": 30,
-    "type": "single_choice",
+    "type": "single",
     "question": "臺灣的青果合作社是屬於何種職能組織？",
     "options": [
       "(A) 供給合作社",
@@ -391,7 +391,7 @@
   },
   {
     "id": 31,
-    "type": "single_choice",
+    "type": "single",
     "question": "基層農會主辦相關農產品運銷業務的單位是？",
     "options": [
       "(A) 推廣部",
@@ -404,7 +404,7 @@
   },
   {
     "id": 32,
-    "type": "single_choice",
+    "type": "single",
     "question": "實務上台北果菜批發市場採用的拍賣制度屬於下列何者？",
     "options": [
       "(A) 荷蘭式拍賣",
@@ -417,7 +417,7 @@
   },
   {
     "id": 33,
-    "type": "single_choice",
+    "type": "single",
     "question": "近幾年我國香蕉主要出口國家為？",
     "options": [
       "(A) 美國",
@@ -430,7 +430,7 @@
   },
   {
     "id": 34,
-    "type": "single_choice",
+    "type": "single",
     "question": "假設某農產品需求的價格彈性為 0.4，表示價格上漲 1%，其需求量的改變為何？",
     "options": [
       "(A) 增加 0.4%",
@@ -443,7 +443,7 @@
   },
   {
     "id": 35,
-    "type": "single_choice",
+    "type": "single",
     "question": "廣義糧食涵蓋所有能提供營養或熱量的產品，則下列哪一項不是廣義糧食？",
     "options": [
       "(A) 米飯",
@@ -456,7 +456,7 @@
   },
   {
     "id": 36,
-    "type": "single_choice",
+    "type": "single",
     "question": "從事農產運銷業務的各種商販統稱？",
     "options": [
       "(A) 運銷商",
@@ -469,7 +469,7 @@
   },
   {
     "id": 37,
-    "type": "single_choice",
+    "type": "single",
     "question": "下列何者屬於職能運銷商？",
     "options": [
       "(A) 販運商",
@@ -482,7 +482,7 @@
   },
   {
     "id": 38,
-    "type": "single_choice",
+    "type": "single",
     "question": "農會與連鎖便利超商合作開發新產品的經營模式為？",
     "options": [
       "(A) 垂直整合",
@@ -495,7 +495,7 @@
   },
   {
     "id": 39,
-    "type": "single_choice",
+    "type": "single",
     "question": "超級市場或量販店主要滿足消費者的哪一種購物習性？",
     "options": [
       "(A) 單站購物習性",
@@ -508,7 +508,7 @@
   },
   {
     "id": 40,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產品加工活動可創造什麼經濟效用？",
     "options": [
       "(1) 地域效用",
@@ -521,7 +521,7 @@
   },
   {
     "id": 41,
-    "type": "single_choice",
+    "type": "single",
     "question": "高麗菜大豐收，農民採收後，經處理晒乾製作成高麗菜乾，可提高何種效用？",
     "options": [
       "(1) 地域效用",
@@ -534,7 +534,7 @@
   },
   {
     "id": 42,
-    "type": "single_choice",
+    "type": "single",
     "question": "在運銷交易過程中，扮演委託代理運銷商角色的是？",
     "options": [
       "(1) 批發商",
@@ -547,7 +547,7 @@
   },
   {
     "id": 43,
-    "type": "single_choice",
+    "type": "single",
     "question": "政府推動「保證收購」政策時，該產品市場常發生下列何種現象？",
     "options": [
       "(1) 供需平衡",
@@ -560,7 +560,7 @@
   },
   {
     "id": 44,
-    "type": "single_choice",
+    "type": "single",
     "question": "為了推動「看樣交易」，哪一項運銷職能的工作可能是該農產品成功與否的關鍵？",
     "options": [
       "(1) 集貨",
@@ -573,7 +573,7 @@
   },
   {
     "id": 45,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產品的單位體積或重量的價值稱為？",
     "options": [
       "(1) 附加價值",
@@ -586,7 +586,7 @@
   },
   {
     "id": 46,
-    "type": "single_choice",
+    "type": "single",
     "question": "某項農產品的需求彈性為 0.6，假設該產品的價格上漲 20％，則其需求量應該：",
     "options": [
       "(1) 不受影響",
@@ -599,7 +599,7 @@
   },
   {
     "id": 47,
-    "type": "single_choice",
+    "type": "single",
     "question": "依據《糧食管理法施行細則》，兼營小規模糧食零售業每日庫存在多少以下免辦糧商登記？",
     "options": [
       "(A) 稻米 300 公斤以下或麵粉 150 公斤以下",
@@ -612,7 +612,7 @@
   },
   {
     "id": 48,
-    "type": "single_choice",
+    "type": "single",
     "question": "申請為農產品批發市場之承銷人，應繳納之保證金金額由誰訂定？",
     "options": [
       "(A) 主管機關",
@@ -625,7 +625,7 @@
   },
   {
     "id": 49,
-    "type": "single_choice",
+    "type": "single",
     "question": "農產品第一次批發交易，由批發市場代農民出具之銷貨憑證免徵？",
     "options": [
       "(A) 所得稅及地價稅",
@@ -638,7 +638,7 @@
   },
   {
     "id": 50,
-    "type": "single_choice",
+    "type": "single",
     "question": "依據《有機農業促進法施行細則》，經加工之有機農產品除水及食鹽外，其有機原料含量不得低於百分之多少？",
     "options": [
       "(A) 80%",
@@ -651,7 +651,7 @@
   },
   {
     "id": 51,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "在以下哪些情況下會造成豬肉市場均衡價格增加且交易數量也增加？",
     "options": [
       "(A) 放寬進口，增加市場供給",
@@ -665,7 +665,7 @@
   },
   {
     "id": 52,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "根據《農產品市場交易法》，農產品第一次批發交易，應在交易當地農產品批發市場為之，其例外情形包含下列哪些情形？",
     "options": [
       "(A) 農民以其農產品直接零售者",
@@ -679,7 +679,7 @@
   },
   {
     "id": 53,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "在氣象預告颱風即將襲台並可能帶來豐沛雨量時，常見葉菜類農產品交易呈現哪些狀況？",
     "options": [
       "(A) 消費地供貨量驟減",
@@ -693,7 +693,7 @@
   },
   {
     "id": 54,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "根據《農產品市場交易法》，農產品共同運銷之供應標的，何者為真？",
     "options": [
       "(A) 提供生產者短期信用確保生產能量",
@@ -707,7 +707,7 @@
   },
   {
     "id": 55,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "以下何者可登記為批發市場的承銷人？",
     "options": [
       "(A) 供應人",
@@ -721,7 +721,7 @@
   },
   {
     "id": 56,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "根據現行《農產品批發市場管理辦法》，果菜批發市場依年交易量多寡區分為六等，以下哪些市場屬於特等市場？",
     "options": [
       "(A) 台北一市",
@@ -735,7 +735,7 @@
   },
   {
     "id": 57,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "以下哪些情形會增加每單位農產品運銷成本？",
     "options": [
       "(A) 擴大農產品生產規模",
@@ -749,7 +749,7 @@
   },
   {
     "id": 58,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "農產品運銷較工業產品運銷複雜的因素有那些？",
     "options": [
       "(A) 農產品具易腐性",
@@ -763,7 +763,7 @@
   },
   {
     "id": 59,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "下列那幾項是衡量技術效率的指標？",
     "options": [
       "(A) 商品經冷藏系統的比率",
@@ -777,7 +777,7 @@
   },
   {
     "id": 60,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "農產運銷合作社為社員運銷農產品的方式包括：",
     "options": [
       "(A) 收買運銷制",
@@ -791,7 +791,7 @@
   },
   {
     "id": 61,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "以下那些組織可以辦理農產品共同運銷？",
     "options": [
       "(A) 運銷合作社",
@@ -805,7 +805,7 @@
   },
   {
     "id": 62,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "有關需求價格彈性，下列那些敘述正確？",
     "options": [
       "(A) 替代品越多，需求價格彈性越大",
@@ -819,7 +819,7 @@
   },
   {
     "id": 63,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "美國蘋果在臺灣的超級市場販售，可為消費者創造那些效用？",
     "options": [
       "(A) 形式效用",
@@ -833,7 +833,7 @@
   },
   {
     "id": 64,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "國人外食次數與支出金額都增加的情況，對農產運銷實務的影響，可能包括：",
     "options": [
       "(A) 有助穩定農產品價格",
@@ -847,7 +847,7 @@
   },
   {
     "id": 65,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "農產品市場的一般特性上，下列哪項敘述是正確的？",
     "options": [
       "(A) 農產品市場價格波動小",
@@ -861,7 +861,7 @@
   },
   {
     "id": 66,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "根據我國法令，農產品批發市場有哪些種類？",
     "options": [
       "(A) 果菜市場",
@@ -875,7 +875,7 @@
   },
   {
     "id": 67,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "廠商企業體統合策略上有所謂「垂直整合（vertical integration）」經營，其採行此一策略的主要考量為何？",
     "options": [
       "(A) 可以擴大市場占有率",
@@ -889,7 +889,7 @@
   },
   {
     "id": 68,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "一般運銷過程可分為哪些主要程序與功能？",
     "options": [
       "(A) 集中",
@@ -903,7 +903,7 @@
   },
   {
     "id": 69,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "依據《農產品市場交易法》規定，農產品批發市場可以哪幾種方式交易？",
     "options": [
       "(A) 拍賣",
@@ -917,7 +917,7 @@
   },
   {
     "id": 70,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "下列哪些標章屬於「3章 1Q」？",
     "options": [
       "(A) 吉園圃標章",
@@ -931,7 +931,7 @@
   },
   {
     "id": 71,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "蛛網理論的假設包括哪些？",
     "options": [
       "(A) 供給量對價格反映有時間落遲性",
@@ -945,7 +945,7 @@
   },
   {
     "id": 72,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "依據《農產品市場交易法》規定，農產品批發市場的經營主體有以下那些類型？",
     "options": [
       "(A) 農民",
@@ -959,7 +959,7 @@
   },
   {
     "id": 73,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "依據《農產品市場交易法》規定，農民或農民團體辦理共同運銷，出售其農產品時，可免徵下列哪些稅捐？",
     "options": [
       "(A) 所得稅",
@@ -973,7 +973,7 @@
   },
   {
     "id": 74,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "政府於 1974 年設置糧食平準基金，提出保證價格收購政策，其目的主要在於？",
     "options": [
       "(A) 減少進口農產品衝擊",
@@ -987,7 +987,7 @@
   },
   {
     "id": 75,
-    "type": "multiple_choice",
+    "type": "multiple",
     "question": "農產品批發市場視市場需要，可透過下列哪些措施，以確保貨源供應無虞？",
     "options": [
       "(A) 契約供應",
@@ -1001,7 +1001,7 @@
   },
   {
     "id": 76,
-    "type": "true_false",
+    "type": "tf",
     "question": "生鮮果菜垂直市場之交易價格，皆由供需決定。",
     "options": ["正確","錯誤"],
     "answer": "正確",
@@ -1009,7 +1009,7 @@
   },
   {
     "id": 77,
-    "type": "true_false",
+    "type": "tf",
     "question": "青蔥在產地市場的供給是由消費需求誘發形成，是為引申供給。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1017,7 +1017,7 @@
   },
   {
     "id": 78,
-    "type": "true_false",
+    "type": "tf",
     "question": "西瓜的原始需求源自產地市場之需求。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1025,7 +1025,7 @@
   },
   {
     "id": 79,
-    "type": "true_false",
+    "type": "tf",
     "question": "假設消費者對同屬葉菜類之小白菜與青江菜的需求具有替代性，則二者的交叉彈性應為正值。",
     "options": ["正確","錯誤"],
     "answer": "正確",
@@ -1033,7 +1033,7 @@
   },
   {
     "id": 80,
-    "type": "true_false",
+    "type": "tf",
     "question": "需求的交叉彈性發生在同一條需求曲線上。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1041,7 +1041,7 @@
   },
   {
     "id": 81,
-    "type": "true_false",
+    "type": "tf",
     "question": "農產品共同運銷只能由農民團體辦理。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1049,7 +1049,7 @@
   },
   {
     "id": 82,
-    "type": "true_false",
+    "type": "tf",
     "question": "農產品批發市場為公用事業，應賺取高額利潤。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1057,7 +1057,7 @@
   },
   {
     "id": 83,
-    "type": "true_false",
+    "type": "tf",
     "question": "通常預報颱風即將來襲會造成零售市場蔬果價格上漲，主要是因為供給減少。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1065,7 +1065,7 @@
   },
   {
     "id": 84,
-    "type": "true_false",
+    "type": "tf",
     "question": "農民以宅配方式銷售自家生產的農產品，屬於一階運銷通路型態。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1073,7 +1073,7 @@
   },
   {
     "id": 85,
-    "type": "true_false",
+    "type": "tf",
     "question": "農產品在零售階段的成本通常低於批發階段的成本。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1081,7 +1081,7 @@
   },
   {
     "id": 86,
-    "type": "true_false",
+    "type": "tf",
     "question": "蔬菜價格循環變動型態相當顯著。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1089,7 +1089,7 @@
   },
   {
     "id": 87,
-    "type": "true_false",
+    "type": "tf",
     "question": "毛豬是我國最早辦理共同運銷的農產品品項。",
     "options": ["正確","錯誤"],
     "answer": "正確",
@@ -1097,7 +1097,7 @@
   },
   {
     "id": 88,
-    "type": "true_false",
+    "type": "tf",
     "question": "依據《農業發展條例》，補貼是穩定農產品價格的重要手段。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1105,7 +1105,7 @@
   },
   {
     "id": 89,
-    "type": "true_false",
+    "type": "tf",
     "question": "依據《農產品市場交易法》規定，農民團體辦理共同運銷，出售其農產品時，可以免繳管理費。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1113,7 +1113,7 @@
   },
   {
     "id": 90,
-    "type": "true_false",
+    "type": "tf",
     "question": "依據《農產品市場交易法實施細則》，批發市場管理費應按成交總量收費。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1121,7 +1121,7 @@
   },
   {
     "id": 91,
-    "type": "true_false",
+    "type": "tf",
     "question": "吉園圃標章屬於「3章 1Q」。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1129,7 +1129,7 @@
   },
   {
     "id": 92,
-    "type": "true_false",
+    "type": "tf",
     "question": "根據恩格爾法則，家庭糧食費用占所得之比率隨所得提高而提高。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1137,7 +1137,7 @@
   },
   {
     "id": 93,
-    "type": "true_false",
+    "type": "tf",
     "question": "運銷商與農民的第一次交易通常在消費地批發市場。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1145,7 +1145,7 @@
   },
   {
     "id": 94,
-    "type": "true_false",
+    "type": "tf",
     "question": "不耐儲藏而易腐的農產品比較難以控制價格的變動；相對的，較耐儲藏的農產品，則較容易控制價格的變動。",
     "options": ["正確","錯誤"],
     "answer": "正確",
@@ -1153,7 +1153,7 @@
   },
   {
     "id": 95,
-    "type": "true_false",
+    "type": "tf",
     "question": "為了擴大產品的市佔率，可以採用價格先高後低的「滲透定價法」策略。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1161,7 +1161,7 @@
   },
   {
     "id": 96,
-    "type": "true_false",
+    "type": "tf",
     "question": "農產品批發市場的交易方式可以先期約定進行。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1169,7 +1169,7 @@
   },
   {
     "id": 97,
-    "type": "true_false",
+    "type": "tf",
     "question": "農產品批發市場的供應承銷人，可以在同一市場兼營供應承銷業務。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1177,7 +1177,7 @@
   },
   {
     "id": 98,
-    "type": "true_false",
+    "type": "tf",
     "question": "農民或農產品販運商可以用自然人身份，作為農產品批發市場經營主體。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1185,7 +1185,7 @@
   },
   {
     "id": 99,
-    "type": "true_false",
+    "type": "tf",
     "question": "我國現行花卉批發市場的拍賣方式，是由起價往上加價方式進行。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
@@ -1193,7 +1193,7 @@
   },
   {
     "id": 100,
-    "type": "true_false",
+    "type": "tf",
     "question": "根據農業發展條例，農民小趙出售本身所生產農產品必須繳交營業稅及消費稅。",
     "options": ["正確","錯誤"],
     "answer": "錯誤",
