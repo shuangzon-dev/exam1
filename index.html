@@ -78,7 +78,7 @@
             <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm">
                 <div class="flex items-center gap-2">
                     <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-semibold">當前科目</span>
-                    <h2 id="currentSubjectTitle" class="text-lg font-bold text-emerald-800"></h2>
+                    <h2 id="currentSubjectTitle" class="text-lg font-bold text-emerald-800">Current Subject</h2>
                 </div>
                 <button onclick="backToSubjectSelect()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-semibold transition">
                     🔄 切換科目
@@ -187,7 +187,7 @@
                     </div>
                     <span id="qSource" class="text-xs text-slate-400"></span>
                 </div>
-                <h3 id="qTitle" class="text-lg font-bold text-slate-800 mb-6 leading-relaxed"></h3>
+                <h3 id="qTitle" class="text-lg font-bold text-slate-800 mb-6 leading-relaxed">Question Title</h3>
 
                 <!-- 選項區塊 -->
                 <div id="optionsContainer" class="space-y-3 mb-6"></div>
@@ -293,6 +293,16 @@
         window.onload = function() {
             loadUserData();
         };
+
+        // 輔助函數：萃取選項開頭代號（例如從 "(A) 內容" 萃取出 "(A)"）
+        function extractOptionKey(optionStr) {
+            if (!optionStr || typeof optionStr !== 'string') return "";
+            const match = optionStr.match(/^\s*(\([A-Za-z0-9]+\))/);
+            if (match) {
+                return match[1].trim();
+            }
+            return optionStr.trim();
+        }
 
         function loadUserData() {
             const savedUser = localStorage.getItem('quiz_user');
@@ -563,11 +573,22 @@
             });
         }
 
+        // 修改後的單選/是非題答案提交處理
         function submitSingleAnswer(selectedOpt) {
             let q = (currentMode === 'wrongReview') ? wrongQueue[0] : currentQuestions[currentIndex];
             totalAnswered++;
+
             const correctArr = Array.isArray(q.answer) ? q.answer : [q.answer];
-            const isCorrect = correctArr.includes(selectedOpt);
+            
+            // 提取使用者選擇的代號與完整字串
+            const selectedKey = extractOptionKey(selectedOpt);
+
+            // 進行相容比對：只要「完整字串相符」或「開頭代號相符」即可
+            const isCorrect = correctArr.some(ans => {
+                const correctKey = extractOptionKey(ans);
+                return (selectedOpt.trim() === String(ans).trim()) || 
+                       (selectedKey === correctKey && selectedKey !== "");
+            });
 
             showResult(isCorrect, correctArr, q);
         }
@@ -587,6 +608,7 @@
             }
         }
 
+        // 修改後的複選題答案提交處理
         function submitMultiAnswer() {
             let q = (currentMode === 'wrongReview') ? wrongQueue[0] : currentQuestions[currentIndex];
             const selectedArr = Object.keys(userAnswers);
@@ -596,9 +618,20 @@
             }
 
             totalAnswered++;
-            const correctArr = Array.isArray(q.answer) ? q.answer : [q.answer];
-            const isCorrect = selectedArr.length === correctArr.length && 
-                              selectedArr.every(opt => correctArr.includes(opt));
+
+            // 相容答案格式：字串（如 "(D), (E)"）或陣列（如 ["(D)", "(E)"]）
+            let correctArr = Array.isArray(q.answer) 
+                ? q.answer 
+                : String(q.answer).split(',').map(s => s.trim());
+
+            // 轉為純代號或去除多餘空白的陣列
+            const userKeys = selectedArr.map(opt => extractOptionKey(opt));
+            const correctKeys = correctArr.map(ans => extractOptionKey(ans));
+
+            // 比對長度與每一個代號是否皆包含在內
+            const isLengthMatch = userKeys.length === correctKeys.length;
+            const isAllMatch = userKeys.every(key => correctKeys.includes(key));
+            const isCorrect = isLengthMatch && isAllMatch;
 
             showResult(isCorrect, correctArr, q);
         }
